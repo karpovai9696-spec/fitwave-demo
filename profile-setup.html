@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitWave — Настройка профиля (ЧЕРНОВИК)</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<div class="draft-banner">ЧЕРНОВИК — локальный макет, только целевой ориентир реализации. Ни один элемент здесь не завершён для запуска.</div>
+<nav class="topnav" aria-label="Экраны макета">
+  <a class="topnav__brand" href="index.html" aria-label="FitWave — на главную">FitWave<span class="brand-dot">.</span></a>
+  <a href="index.html">Лендинг</a>
+  <a href="login.html">Вход</a>
+  <a href="register.html">Регистрация</a>
+  <a href="consent-gate.html">Экран согласия</a>
+  <a href="plan-home.html">План: главная</a>
+  <a href="cycle-entry.html">Дневник цикла</a>
+  <a href="wellness-illness-entry.html">Самочувствие/болезнь</a>
+  <a href="progress.html">Прогресс</a>
+  <a href="profile-setup.html">Настройка профиля</a>
+  <a href="plan-week.html">План: неделя</a>
+  <a href="plan-session.html">План: сессия</a>
+  <a href="support-list.html">Поддержка</a>
+  <a href="news-list.html">Новости</a>
+  <a href="news-article.html">Новость</a>
+  <a href="password-recovery.html">Восстановление пароля</a>
+</nav>
+<main id="main-content">
+  <div id="flow-profile-setup" data-flow-screen>
+  <section class="card">
+    <h1>Настройка профиля</h1>
+    <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — статическое демо, без реальных персональных данных</span></p>
+    <form data-demo="profile">
+      <label for="display-name">Отображаемое имя (только демо)</label>
+      <input id="display-name" type="text" autocomplete="off"
+             placeholder="напр., Демо-пользователь — не реальное имя">
+      <label>Тренировочный опыт (демо)</label>
+      <p>
+        <label><input type="radio" name="exp"> начинающий</label>
+        <label><input type="radio" name="exp"> средний</label>
+        <label><input type="radio" name="exp"> продвинутый</label>
+      </p>
+      <label>Предпочтительные дни тренировок (демо)</label>
+      <p>
+        <label><input type="checkbox"> Пн</label>
+        <label><input type="checkbox"> Ср</label>
+        <label><input type="checkbox"> Пт</label>
+      </p>
+      <p><button type="submit">Сохранить демо-профиль</button></p>
+      <p class="placeholder-box" data-demo-note hidden>
+        Только демо: данные не отправлялись и не сохранялись; профили ещё не существуют (модуль fw-identity — пустой макет; контракты в статусе ЧЕРНОВИК).
+      </p>
+    </form>
+    <p><a href="#/profile-consent-preview">Предпросмотр демо-шага согласия (в рамках текущей загрузки страницы)</a></p>
+    <p class="muted">Состояние демо хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются. Шаг предпросмотра согласия ниже выполняется внутри этой загрузки страницы, чтобы выбранные настройки макета сохранялись при переходе.</p>
+  </section>
+  </div>
+  <div id="flow-profile-consent" data-flow-screen hidden>
+    <section class="card">
+      <h1>Предпросмотр согласия (демо сценария)</h1>
+      <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — предпросмотр согласия (ЧЕРНОВИК), не реальный шаг согласия; состояние хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</span></p>
+      <form data-demo="flow-profile-consent">
+        <label>Настройки профиля макета (только демо)</label>
+        <p>
+          <label><input type="radio" name="units-flow"> метрические единицы</label>
+          <label><input type="radio" name="units-flow"> имперские единицы</label>
+        </p>
+        <p>
+          <label><input type="radio" name="theme-flow"> светлая тема</label>
+          <label><input type="radio" name="theme-flow"> тёмная тема</label>
+        </p>
+        <p><button type="submit">Предпросмотр демо согласия</button></p>
+        <p class="placeholder-box" data-demo-note hidden></p>
+      </form>
+      <p class="placeholder-box" data-flow-state></p>
+      <p class="placeholder-box">
+        Это предпросмотр в статусе ЧЕРНОВИК (макет) исключительно для демонстрации. Никакое согласие не принимается, не предоставляется, не активируется и не сохраняется в этом макете; значение consent_version остаётся НЕИЗВЕСТНО; юридический текст является только заглушкой; согласование с юристами или владельцем продукта не заявляется. Отдельный
+        <a href="consent-gate.html">экран согласия</a> остаётся отдельной заглушкой в статусе ЧЕРНОВИК и не изменяется.
+      </p>
+      <p><a href="#/profile-setup">Назад к настройке профиля</a></p>
+    </section>
+  </div>
+  <section class="card">
+    <h2>Управление согласиями (заглушка)</h2>
+    <p class="muted">consent_version: <strong>НЕИЗВЕСТНО</strong></p>
+    <div class="placeholder-box">
+      [ЗАГЛУШКА] Здесь можно просмотреть выданные согласия или отозвать их. Финальная формулировка ожидает согласования с юристами; сохранение согласий не реализовано, и никакое состояние согласия в этом макете не фиксируется.
+    </div>
+  </section>
+  <p class="disclaimer">
+    FitWave не оказывает медицинских услуг и не даёт медицинских рекомендаций. В продукте нигде не предусмотрены и не подразумеваются диагностика, лечение, подбор препаратов, консультации по контрацепции, фертильности или ведению беременности (медицинское ограничение FW-IR-001).
+  </p>
+</main>
+<script src="assets/app.js"></script>
+</body>
+</html>

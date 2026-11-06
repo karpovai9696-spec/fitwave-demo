@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitWave — Поддержка (ЧЕРНОВИК)</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<div class="draft-banner">ЧЕРНОВИК — локальный макет, только целевой ориентир реализации. Ни один элемент здесь не завершён для запуска.</div>
+<nav class="topnav" aria-label="Экраны макета">
+  <a class="topnav__brand" href="index.html" aria-label="FitWave — на главную">FitWave<span class="brand-dot">.</span></a>
+  <a href="index.html">Лендинг</a>
+  <a href="login.html">Вход</a>
+  <a href="register.html">Регистрация</a>
+  <a href="consent-gate.html">Экран согласия</a>
+  <a href="plan-home.html">План: главная</a>
+  <a href="cycle-entry.html">Дневник цикла</a>
+  <a href="wellness-illness-entry.html">Самочувствие/болезнь</a>
+  <a href="progress.html">Прогресс</a>
+  <a href="profile-setup.html">Настройка профиля</a>
+  <a href="plan-week.html">План: неделя</a>
+  <a href="plan-session.html">План: сессия</a>
+  <a href="support-list.html">Поддержка</a>
+  <a href="news-list.html">Новости</a>
+  <a href="news-article.html">Новость</a>
+  <a href="password-recovery.html">Восстановление пароля</a>
+</nav>
+<main id="main-content">
+  <div id="flow-support-list" data-flow-screen>
+  <section class="card">
+    <h1>Поддержка</h1>
+    <p><span class="mock-tag">ДАННЫЕ МАКЕТА — условные обращения, без реальных пользователей и персональных данных</span></p>
+    <div class="plan-day"><span class="day">#1</span><span>Демо-обращение: вопрос о демо-плане (макет)</span></div>
+    <div class="plan-day"><span class="day">#2</span><span>Демо-обращение: отзыв о макете (макет)</span></div>
+    <p><a href="#/support-thread">Открыть демо-обращение в поддержку (в рамках текущей загрузки страницы)</a></p>
+    <form data-demo="support">
+      <label for="msg">Новое сообщение (демо)</label>
+      <input id="msg" type="text" autocomplete="off"
+             placeholder="введите демо-сообщение — не отправляется и не сохраняется">
+      <p><button type="submit">Отправить демо-сообщение</button></p>
+      <p class="placeholder-box" data-demo-note hidden>
+        Только демо: обмен сообщениями с поддержкой не существует (модуль fw-backoffice — пустой макет; контракты в статусе ЧЕРНОВИК). Данные не отправлялись и не сохранялись.
+      </p>
+    </form>
+    <p class="muted">Состояние демо хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются. Шаг просмотра демо-обращения ниже выполняется внутри этой загрузки страницы, чтобы выбранная ветка сохранялась при переходе.</p>
+  </section>
+  </div>
+  <div id="flow-support-thread" data-flow-screen hidden>
+    <section class="card">
+      <h1>Обращение в поддержку (демо сценария)</h1>
+      <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — условное содержимое обращения, без реальных пользователей; состояние хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</span></p>
+      <form data-demo="flow-support">
+        <label>Открыть демо-обращение (макет)</label>
+        <p>
+          <label><input type="radio" name="thread-flow"> Демо-обращение №1: вопрос о демо-плане</label>
+          <label><input type="radio" name="thread-flow"> Демо-обращение №2: отзыв о макете</label>
+        </p>
+        <p><button type="submit">Открыть демо-обращение</button></p>
+        <p class="placeholder-box" data-demo-note hidden></p>
+      </form>
+      <p class="placeholder-box" data-flow-state></p>
+      <p class="placeholder-box">
+        Это макет обращения в поддержку в статусе ЧЕРНОВИК, а не реальная система поддержки. Содержимое ветки заведомо условное: здесь нет реальных имён, адресов электронной почты, номеров телефонов, вложений или исходных данных поддержки. Функция ответа отсутствует — данные не отправляются, уведомления не рассылаются (CA-O7 ЗАБЛОКИРОВАНО). Функционал биллинга и платежей также отсутствует (CA-B6 ЗАБЛОКИРОВАНО).
+      </p>
+      <p><a href="#/support-list">Назад к списку обращений в поддержку</a></p>
+    </section>
+  </div>
+  <section class="card">
+    <h2>Статус</h2>
+    <p class="placeholder-box">
+      Поддержка и уведомления не реализованы. Уведомления —
+      <span class="blocked-note">ЗАБЛОКИРОВАНО</span> (CA-O7); логика провайдера отсутствует. Из этого макета недоступны экраны администратора или аналитика, а реальные данные пользователей не отображаются.
+    </p>
+  </section>
+  <p class="disclaimer">
+    FitWave не оказывает медицинских услуг и не даёт медицинских рекомендаций. В продукте нигде не предусмотрены и не подразумеваются диагностика, лечение, подбор препаратов, консультации по контрацепции, фертильности или ведению беременности (медицинское ограничение FW-IR-001).
+  </p>
+</main>
+<script src="assets/app.js"></script>
+</body>
+</html>

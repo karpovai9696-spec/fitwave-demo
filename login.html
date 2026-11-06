@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitWave — Вход (ЧЕРНОВИК)</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<div class="draft-banner">ЧЕРНОВИК — локальный макет, только целевой ориентир реализации. Ни один элемент здесь не завершён для запуска.</div>
+<nav class="topnav" aria-label="Экраны макета">
+  <a class="topnav__brand" href="index.html" aria-label="FitWave — на главную">FitWave<span class="brand-dot">.</span></a>
+  <a href="index.html">Лендинг</a>
+  <a href="login.html">Вход</a>
+  <a href="register.html">Регистрация</a>
+  <a href="consent-gate.html">Экран согласия</a>
+  <a href="plan-home.html">План: главная</a>
+  <a href="cycle-entry.html">Дневник цикла</a>
+  <a href="wellness-illness-entry.html">Самочувствие/болезнь</a>
+  <a href="progress.html">Прогресс</a>
+  <a href="profile-setup.html">Настройка профиля</a>
+  <a href="plan-week.html">План: неделя</a>
+  <a href="plan-session.html">План: сессия</a>
+  <a href="support-list.html">Поддержка</a>
+  <a href="news-list.html">Новости</a>
+  <a href="news-article.html">Новость</a>
+  <a href="password-recovery.html">Восстановление пароля</a>
+</nav>
+<main id="main-content">
+  <div id="flow-login" data-flow-screen>
+  <section class="card">
+    <h1>Войти</h1>
+    <form data-demo="login">
+      <label for="email">Электронная почта</label>
+      <input id="email" type="email" autocomplete="off" placeholder="только демо — не сохраняется">
+      <label for="password">Пароль</label>
+      <input id="password" type="password" autocomplete="off" placeholder="только демо — не сохраняется">
+      <p><button type="submit">Войти (демо)</button></p>
+      <p class="placeholder-box" data-demo-note hidden>
+        Только демо: аутентификация ещё не реализована (модуль fw-identity — пустой макет; контракты в статусе ЧЕРНОВИК). Данные не отправлялись и не сохранялись.
+      </p>
+    </form>
+    <p class="muted">Восстановление пароля: <span class="placeholder-box">заглушка — не реализовано (НЕ РЕШЕНО)</span></p>
+    <p class="muted">Состояние демо хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются. Шаги демо авторизации ниже выполняются внутри этой загрузки страницы, чтобы выбранные значения макета сохранялись между переходами.</p>
+    <p><a href="#/auth-register-demo">Попробовать демо-шаг регистрации (в рамках текущей загрузки страницы)</a></p>
+  </section>
+  </div>
+  <div id="flow-auth-register" data-flow-screen hidden>
+    <section class="card">
+      <h1>Регистрация (демо сценария)</h1>
+      <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — демо авторизации (ЧЕРНОВИК), не реальная регистрация; состояние хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</span></p>
+      <form data-demo="flow-auth">
+        <label>Выбор регистрации макета (только демо)</label>
+        <p>
+          <label><input type="radio" name="reg-flow"> демо-аккаунт «A»</label>
+          <label><input type="radio" name="reg-flow"> демо-аккаунт «B»</label>
+        </p>
+        <p><button type="submit">Предпросмотр демо регистрации</button></p>
+        <p class="placeholder-box" data-demo-note hidden></p>
+      </form>
+      <p class="placeholder-box" data-flow-state></p>
+      <p class="placeholder-box">
+        Это шаг макета в статусе ЧЕРНОВИК. Реальная аутентификация не выполняется; учётные данные не принимаются и не сохраняются; пароль не проверяется; аккаунт не создаётся; провайдеры не подключены.
+      </p>
+      <p><a href="#/auth-password-recovery-demo">Перейти к демо-шагу восстановления пароля (без перезагрузки страницы)</a></p>
+      <p><a href="#/login">Назад ко входу</a></p>
+    </section>
+  </div>
+  <div id="flow-auth-password-recovery" data-flow-screen hidden>
+    <section class="card">
+      <h1>Восстановление пароля (демо сценария)</h1>
+      <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — демо авторизации (ЧЕРНОВИК), не реальное восстановление пароля; состояние хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</span></p>
+      <form data-demo="flow-auth">
+        <label>Выбор восстановления макета (только демо)</label>
+        <p>
+          <label><input type="radio" name="rec-flow"> условная ссылка для сброса</label>
+          <label><input type="radio" name="rec-flow"> условный код обращения</label>
+        </p>
+        <p><button type="submit">Предпросмотр демо восстановления пароля</button></p>
+        <p class="placeholder-box" data-demo-note hidden></p>
+      </form>
+      <p class="placeholder-box" data-flow-state></p>
+      <p class="placeholder-box">
+        Это шаг макета в статусе ЧЕРНОВИК. Пароль не восстанавливается и не проверяется; письма, СМС и пуш-уведомления не отправляются — уведомления имеют статус ЗАБЛОКИРОВАНО (CA-O7); провайдеры не подключены.
+      </p>
+      <p><a href="#/auth-profile-setup-demo">Перейти к предпросмотру настройки профиля (без перезагрузки страницы)</a></p>
+      <p><a href="#/login">Назад ко входу</a></p>
+    </section>
+  </div>
+  <div id="flow-auth-profile-setup" data-flow-screen hidden>
+    <section class="card">
+      <h1>Предпросмотр настройки профиля (демо сценария)</h1>
+      <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — демо авторизации (ЧЕРНОВИК), не реальная настройка профиля; состояние хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</span></p>
+      <form data-demo="flow-auth">
+        <label>Выбор предпросмотра профиля макета (только демо)</label>
+        <p>
+          <label><input type="radio" name="prof-flow"> план для начинающих</label>
+          <label><input type="radio" name="prof-flow"> поддерживающий план</label>
+        </p>
+        <p><button type="submit">Предпросмотр демо настройки профиля</button></p>
+        <p class="placeholder-box" data-demo-note hidden></p>
+      </form>
+      <p class="placeholder-box" data-flow-state></p>
+      <p class="placeholder-box">
+        Это шаг макета в статусе ЧЕРНОВИК. Реальный профиль не создаётся; согласие не принимается; значение consent_version остаётся НЕИЗВЕСТНО; юридический текст является только заглушкой; согласование с юристами или владельцем продукта не заявляется.
+      </p>
+      <p><a href="#/login">Назад ко входу</a></p>
+    </section>
+  </div>
+  <p class="disclaimer">
+    FitWave не оказывает медицинских услуг и не даёт медицинских рекомендаций. В продукте нигде не предусмотрены и не подразумеваются диагностика, лечение, подбор препаратов, консультации по контрацепции, фертильности или ведению беременности (медицинское ограничение FW-IR-001).
+  </p>
+</main>
+<script src="assets/app.js"></script>
+</body>
+</html>

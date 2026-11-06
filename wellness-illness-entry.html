@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitWave — Самочувствие/болезнь (ЧЕРНОВИК)</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<div class="draft-banner">ЧЕРНОВИК — локальный макет, только целевой ориентир реализации. Ни один элемент здесь не завершён для запуска.</div>
+<nav class="topnav" aria-label="Экраны макета">
+  <a class="topnav__brand" href="index.html" aria-label="FitWave — на главную">FitWave<span class="brand-dot">.</span></a>
+  <a href="index.html">Лендинг</a>
+  <a href="login.html">Вход</a>
+  <a href="register.html">Регистрация</a>
+  <a href="consent-gate.html">Экран согласия</a>
+  <a href="plan-home.html">План: главная</a>
+  <a href="cycle-entry.html">Дневник цикла</a>
+  <a href="wellness-illness-entry.html">Самочувствие/болезнь</a>
+  <a href="progress.html">Прогресс</a>
+  <a href="profile-setup.html">Настройка профиля</a>
+  <a href="plan-week.html">План: неделя</a>
+  <a href="plan-session.html">План: сессия</a>
+  <a href="support-list.html">Поддержка</a>
+  <a href="news-list.html">Новости</a>
+  <a href="news-article.html">Новость</a>
+  <a href="password-recovery.html">Восстановление пароля</a>
+</nav>
+<main id="main-content">
+  <section class="card">
+    <h1>Сигналы самочувствия и болезни</h1>
+    <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — статическое демо только для справки</span></p>
+    <p class="muted">Состояние демо хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</p>
+    <form data-demo="wellness">
+      <label>Общее самочувствие сегодня (демо, только справочный ориентир)</label>
+      <p>
+        <label><input type="radio" name="feel"> мало сил</label>
+        <label><input type="radio" name="feel"> обычно</label>
+        <label><input type="radio" name="feel"> отлично</label>
+      </p>
+      <label for="sleep">Часы сна (демо)</label>
+      <input id="sleep" type="text" autocomplete="off" placeholder="напр., 7 — только демо">
+      <label for="illnote">Что ещё учесть при адаптации плана (демо)</label>
+      <input id="illnote" type="text" autocomplete="off" placeholder="напр., лёгкое недомогание — только демо">
+      <p><button type="submit">Записать демо-сигнал</button></p>
+      <p class="placeholder-box" data-demo-note hidden>
+        Только демо: сигналы служат справочными вводными для будущей адаптации плана. Данные не отправлялись и не сохранялись; никакие рекомендации здесь не формируются.
+      </p>
+    </form>
+  </section>
+  <section class="card">
+    <h2>Стоп-сигнал при высокой температуре (заглушка ЧЕРНОВИК)</h2>
+    <p class="placeholder-box">
+      Только текст-заглушка, функционал не реализован: когда пользователь отмечает высокую температуру, тренировочный план ставится на паузу и возобновляется только тогда, когда пользователь сам укажет, что можно продолжать. Это сделано исключительно для комфорта и безопасности и не является медицинской рекомендацией.
+    </p>
+  </section>
+  <p class="disclaimer">
+    FitWave не оказывает медицинских услуг и не даёт медицинских рекомендаций. В продукте нигде не предусмотрены и не подразумеваются диагностика, лечение, подбор препаратов, консультации по контрацепции, фертильности или ведению беременности (медицинское ограничение FW-IR-001). Все введённые здесь отметки о самочувствии и болезни служат исключительно справочными сигналами.
+  </p>
+</main>
+<script src="assets/app.js"></script>
+</body>
+</html>

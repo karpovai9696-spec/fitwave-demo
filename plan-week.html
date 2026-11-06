@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitWave — План: неделя (ЧЕРНОВИК)</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<div class="draft-banner">ЧЕРНОВИК — локальный макет, только целевой ориентир реализации. Ни один элемент здесь не завершён для запуска.</div>
+<nav class="topnav" aria-label="Экраны макета">
+  <a class="topnav__brand" href="index.html" aria-label="FitWave — на главную">FitWave<span class="brand-dot">.</span></a>
+  <a href="index.html">Лендинг</a>
+  <a href="login.html">Вход</a>
+  <a href="register.html">Регистрация</a>
+  <a href="consent-gate.html">Экран согласия</a>
+  <a href="plan-home.html">План: главная</a>
+  <a href="cycle-entry.html">Дневник цикла</a>
+  <a href="wellness-illness-entry.html">Самочувствие/болезнь</a>
+  <a href="progress.html">Прогресс</a>
+  <a href="profile-setup.html">Настройка профиля</a>
+  <a href="plan-week.html">План: неделя</a>
+  <a href="plan-session.html">План: сессия</a>
+  <a href="support-list.html">Поддержка</a>
+  <a href="news-list.html">Новости</a>
+  <a href="news-article.html">Новость</a>
+  <a href="password-recovery.html">Восстановление пароля</a>
+</nav>
+<main id="main-content">
+  <section class="card">
+    <h1>Тренировочная неделя</h1>
+    <p><span class="mock-tag">ДАННЫЕ МАКЕТА — статический пример недели, не реальный план</span></p>
+    <p class="muted">Состояние демо хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</p>
+    <div class="plan-day"><span class="day">Пн</span><span>Силовая — всё тело <span class="mock-tag">основание: base_day (ссылка ЧЕРНОВИК)</span></span></div>
+    <div class="plan-day"><span class="day">Вт</span><span>Восстановительная прогулка <span class="mock-tag">основание: recovery_day (ссылка ЧЕРНОВИК)</span></span></div>
+    <div class="plan-day"><span class="day">Ср</span><span>Силовая — низ тела <span class="mock-tag">основание: base_day (ссылка ЧЕРНОВИК)</span></span></div>
+    <div class="plan-day"><span class="day">Чт</span><span>Отдых <span class="mock-tag">точность: оценка (ЧЕРНОВИК)</span></span></div>
+    <div class="plan-day"><span class="day">Пт</span><span>Силовая — верх тела <span class="mock-tag">основание: base_day (ссылка ЧЕРНОВИК)</span></span></div>
+    <div class="plan-day"><span class="day">Сб</span><span>Активный отдых <span class="mock-tag">точность: оценка (ЧЕРНОВИК)</span></span></div>
+    <div class="plan-day"><span class="day">Вс</span><span>Отдых</span></div>
+  </section>
+  <section class="card">
+    <h2>О режиме макета</h2>
+    <p class="muted">
+      Заглушка экрана «План: неделя». Коды оснований, ссылки на правила и оценки точности показаны только для вёрстки и имеют статус ЧЕРНОВИК. Функционал тренировок, планов или проведения сессий не подключён: генерация планов не существует (модуль fw-training — пустой макет; контракты в статусе ЧЕРНОВИК). Автоматическая синхронизация с циклом не выполняется — правило FW-MC-002 отключено. Контекст самочувствия или болезни носит исключительно справочный характер (FW-IR-001) и никогда не является медицинским заключением.
+    </p>
+  </section>
+  <p class="disclaimer">
+    FitWave не оказывает медицинских услуг и не даёт медицинских рекомендаций. В продукте нигде не предусмотрены и не подразумеваются диагностика, лечение, подбор препаратов, консультации по контрацепции, фертильности или ведению беременности (медицинское ограничение FW-IR-001).
+  </p>
+</main>
+<script src="assets/app.js"></script>
+</body>
+</html>

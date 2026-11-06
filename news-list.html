@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitWave — Новости (ЧЕРНОВИК)</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<div class="draft-banner">ЧЕРНОВИК — локальный макет, только целевой ориентир реализации. Ни один элемент здесь не завершён для запуска.</div>
+<nav class="topnav" aria-label="Экраны макета">
+  <a class="topnav__brand" href="index.html" aria-label="FitWave — на главную">FitWave<span class="brand-dot">.</span></a>
+  <a href="index.html">Лендинг</a>
+  <a href="login.html">Вход</a>
+  <a href="register.html">Регистрация</a>
+  <a href="consent-gate.html">Экран согласия</a>
+  <a href="plan-home.html">План: главная</a>
+  <a href="cycle-entry.html">Дневник цикла</a>
+  <a href="wellness-illness-entry.html">Самочувствие/болезнь</a>
+  <a href="progress.html">Прогресс</a>
+  <a href="profile-setup.html">Настройка профиля</a>
+  <a href="plan-week.html">План: неделя</a>
+  <a href="plan-session.html">План: сессия</a>
+  <a href="support-list.html">Поддержка</a>
+  <a href="news-list.html">Новости</a>
+  <a href="news-article.html">Новость</a>
+  <a href="password-recovery.html">Восстановление пароля</a>
+</nav>
+<main id="main-content">
+  <div id="flow-news-list" data-flow-screen>
+  <section class="card">
+    <h1>Новости</h1>
+    <p><span class="mock-tag">ДАННЫЕ МАКЕТА — условные статьи, за ними нет CMS</span></p>
+    <div class="plan-day"><span class="day">#1</span><span>Демо-статья: добро пожаловать в макет (макет)</span></div>
+    <div class="plan-day"><span class="day">#2</span><span>Демо-статья: что такое экраны-заглушки (макет)</span></div>
+    <div class="plan-day"><span class="day">#3</span><span>Демо-статья: границы и отказ от ответственности (макет)</span></div>
+    <p><a href="#/news-article-preview">Предпросмотр демо-статьи (в рамках текущей загрузки страницы)</a></p>
+    <p class="muted">Состояние демо хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются. Шаг предпросмотра статьи ниже выполняется внутри этой загрузки страницы, чтобы выбранный элемент макета сохранялся при переходе.</p>
+  </section>
+  </div>
+  <div id="flow-news-article" data-flow-screen hidden>
+    <section class="card">
+      <h1>Предпросмотр новости (демо сценария)</h1>
+      <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — условный текст статьи, без реального контента; состояние хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</span></p>
+      <form data-demo="flow-news">
+        <label>Открыть демо-статью (макет)</label>
+        <p>
+          <label><input type="radio" name="article-flow"> Демо-статья №1: добро пожаловать в макет</label>
+          <label><input type="radio" name="article-flow"> Демо-статья №2: что такое экраны-заглушки</label>
+          <label><input type="radio" name="article-flow"> Демо-статья №3: границы и отказ от ответственности</label>
+        </p>
+        <p><button type="submit">Открыть демо-статью</button></p>
+        <p class="placeholder-box" data-demo-note hidden></p>
+      </form>
+      <p class="placeholder-box" data-flow-state></p>
+      <p class="placeholder-box">
+        Это предпросмотр статьи в статусе ЧЕРНОВИК (макет) исключительно для демонстрации. CMS не подключена; публикация из админ-панели не выполняется; внешние URL не загружаются; изображения и сетевые ресурсы не запрашиваются; уведомления не отправляются (CA-O7 ЗАБЛОКИРОВАНО); провайдеры не подключены; реальные данные пользователей не используются. Текст ниже — статическая заглушка, а не реальная статья.
+      </p>
+      <div class="placeholder-box">
+        [ТЕКСТ СТАТЬИ — МАКЕТ] Этот абзац представляет собой статический текст-заглушку на месте содержимого статьи. Он никуда не ведёт, ничего не загружает и не написан реальным автором.
+      </div>
+      <p><a href="#/news-list">Назад к списку новостей</a></p>
+    </section>
+  </div>
+  <section class="card">
+    <h2>О режиме макета</h2>
+    <p class="muted">
+      Заглушка списка новостей. За ней нет ни CMS, ни публикации из админ-панели — элементы представляют собой статический текст макета. Механика доставки и оповещений отсутствует: уведомления — <span class="blocked-note">ЗАБЛОКИРОВАНО</span>
+      (CA-O7), поэтому никакие оповещения о «новой статье» не формируются и не отправляются.
+    </p>
+  </section>
+  <p class="disclaimer">
+    FitWave не оказывает медицинских услуг и не даёт медицинских рекомендаций. В продукте нигде не предусмотрены и не подразумеваются диагностика, лечение, подбор препаратов, консультации по контрацепции, фертильности или ведению беременности (медицинское ограничение FW-IR-001).
+  </p>
+</main>
+<script src="assets/app.js"></script>
+</body>
+</html>

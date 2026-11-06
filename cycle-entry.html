@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitWave — Дневник цикла (ЧЕРНОВИК)</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+<div class="draft-banner">ЧЕРНОВИК — локальный макет, только целевой ориентир реализации. Ни один элемент здесь не завершён для запуска.</div>
+<nav class="topnav" aria-label="Экраны макета">
+  <a class="topnav__brand" href="index.html" aria-label="FitWave — на главную">FitWave<span class="brand-dot">.</span></a>
+  <a href="index.html">Лендинг</a>
+  <a href="login.html">Вход</a>
+  <a href="register.html">Регистрация</a>
+  <a href="consent-gate.html">Экран согласия</a>
+  <a href="plan-home.html">План: главная</a>
+  <a href="cycle-entry.html">Дневник цикла</a>
+  <a href="wellness-illness-entry.html">Самочувствие/болезнь</a>
+  <a href="progress.html">Прогресс</a>
+  <a href="profile-setup.html">Настройка профиля</a>
+  <a href="plan-week.html">План: неделя</a>
+  <a href="plan-session.html">План: сессия</a>
+  <a href="support-list.html">Поддержка</a>
+  <a href="news-list.html">Новости</a>
+  <a href="news-article.html">Новость</a>
+  <a href="password-recovery.html">Восстановление пароля</a>
+</nav>
+<main id="main-content">
+  <div id="flow-cycle-entry" data-flow-screen>
+  <section class="card">
+    <h1>Записать день цикла</h1>
+    <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — статическое демо, данные нигде не сохраняются</span></p>
+    <form data-demo="cycle-entry">
+      <label for="day">Дата (демо)</label>
+      <input id="day" type="text" autocomplete="off" placeholder="напр., 2026-10-15 — только демо">
+      <label>Интенсивность выделений (демо, только статистические категории)</label>
+      <p>
+        <label><input type="radio" name="flow"> скудные</label>
+        <label><input type="radio" name="flow"> умеренные</label>
+        <label><input type="radio" name="flow"> обильные</label>
+      </p>
+      <label>Сигналы для отслеживания (демо, немедицинские)</label>
+      <p>
+        <label><input type="checkbox"> мало сил</label>
+        <label><input type="checkbox"> отмечены спазмы</label>
+        <label><input type="checkbox"> прерывистый сон</label>
+      </p>
+      <label for="note">Заметка (демо)</label>
+      <input id="note" type="text" autocomplete="off" placeholder="свободный текст — только демо, не сохраняется">
+      <p><button type="submit">Записать демо-значение</button></p>
+      <p class="placeholder-box" data-demo-note hidden>
+        Только демо: записи служат исключительно статистическими оценками для расчёта прогноза и никогда не являются медицинскими заключениями. Данные не отправлялись и не сохранялись.
+      </p>
+    </form>
+  </section>
+  <section class="card">
+    <h2>О режиме макета</h2>
+    <p class="muted">
+      Заглушка для дневника цикла. Прогнозы цикла после реализации будут строиться как статистические оценки с явным указанием погрешности и не являются медицинскими заключениями. Значение consent_version остаётся НЕИЗВЕСТНО; юридический текст не является финальным.
+    </p>
+    <p class="muted">Состояние демо хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются. Шаги «самочувствие/прогресс» ниже выполняются внутри этой загрузки страницы, чтобы введённые в демо записи сохранялись между переходами.</p>
+    <p><a href="#/wellness-illness-entry">Перейти к демо «Самочувствие/болезнь» (в рамках текущей загрузки страницы)</a></p>
+  </section>
+  </div>
+  <div id="flow-wellness-illness" data-flow-screen hidden>
+    <section class="card">
+      <h1>Сигналы самочувствия и болезни (демо сценария)</h1>
+      <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — статическое демо только для справки; состояние хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</span></p>
+      <form data-demo="flow-wellness">
+        <label>Общее самочувствие сегодня (демо, только справочный ориентир)</label>
+        <p>
+          <label><input type="radio" name="feel-flow"> мало сил</label>
+          <label><input type="radio" name="feel-flow"> обычно</label>
+          <label><input type="radio" name="feel-flow"> отлично</label>
+        </p>
+        <p><button type="submit">Записать демо-сигнал</button></p>
+        <p class="placeholder-box" data-demo-note hidden></p>
+      </form>
+      <p class="placeholder-box">Формулировка «Стоп-сигнал при высокой температуре» остаётся исключительно текстовой заглушкой в статусе ЧЕРНОВИК — никакая медицинская логика в этом макете не работает.</p>
+      <p><a href="#/progress">Перейти к шагу «Прогресс» (без перезагрузки страницы)</a></p>
+    </section>
+  </div>
+  <div id="flow-progress" data-flow-screen hidden>
+    <section class="card">
+      <h1>Прогресс (демо сценария)</h1>
+      <p><span class="mock-tag">ДАННЫЕ МАКЕТА — статические примеры цифр, не реальная статистика; состояние хранится в памяти только на время текущей загрузки страницы; данные нигде не сохраняются.</span></p>
+      <p class="placeholder-box" data-flow-state></p>
+      <div class="plan-day"><span class="day">Сессии</span><span>12 завершено (макет)</span></div>
+      <div class="plan-day"><span class="day">Серия</span><span>3 недели (макет)</span></div>
+      <p class="placeholder-box">Только отображение макета. Приведённые выше числа — статические заглушки, а любые демо-записи из текущей загрузки страницы показаны исключительно для наглядности. Причинно-следственная связь между показателями цикла, самочувствия и тренировок не заявляется и не подразумевается; медицинская трактовка не даётся.</p>
+      <p><a href="#/cycle-entry">Назад в дневник цикла</a></p>
+    </section>
+  </div>
+  <p class="disclaimer">
+    FitWave не оказывает медицинских услуг и не даёт медицинских рекомендаций. В продукте нигде не предусмотрены и не подразумеваются диагностика, лечение, подбор препаратов, консультации по контрацепции, фертильности или ведению беременности (медицинское ограничение FW-IR-001). Данные о цикле никогда не трактуются как медицинское заключение.
+  </p>
+</main>
+<script src="assets/app.js"></script>
+</body>
+</html>
