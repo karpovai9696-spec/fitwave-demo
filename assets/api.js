@@ -386,6 +386,36 @@
           }).catch(function (e) { alert("Ошибка удаления: " + e.message); });
       });
       box.appendChild(dl); box.appendChild(del);
+
+      var passForm = document.createElement("form");
+      passForm.className = "auth-form";
+      passForm.style.marginTop = "18px";
+      passForm.innerHTML = "<h3>Сменить пароль</h3>" +
+        "<label for='cur-pass'>Текущий пароль</label>" +
+        "<input id='cur-pass' type='password' autocomplete='current-password'>" +
+        "<label for='new-pass'>Новый пароль (минимум 8 символов)</label>" +
+        "<input id='new-pass' type='password' autocomplete='new-password'>" +
+        "<button class='button secondary' type='submit'>Обновить пароль</button>" +
+        "<p class='auth-hint' data-pass-msg hidden></p>";
+      passForm.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        var cur = passForm.querySelector("#cur-pass");
+        var nw = passForm.querySelector("#new-pass");
+        var pm = passForm.querySelector("[data-pass-msg]");
+        api("/api/me/password", { method: "POST", body: {
+          current_password: cur ? cur.value : "",
+          new_password: nw ? nw.value : "" } }).then(function (data) {
+            var a = auth() || {};
+            setAuth({ token: data.token, user: a.user });
+            pm.textContent = "Пароль обновлён; другие сессии завершены.";
+            pm.hidden = false;
+          }).catch(function (e) {
+            pm.textContent = e.message === "AUTH_INVALID_CREDENTIALS"
+              ? "Текущий пароль неверен." : "Ошибка: " + e.message;
+            pm.hidden = false;
+          });
+      });
+      box.appendChild(passForm);
       mainP.appendChild(box);
     }
   }
