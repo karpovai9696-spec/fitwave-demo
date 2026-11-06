@@ -1352,3 +1352,266 @@ body:not(.landing-2025) .dash-card { gap: 8px; }
 .demo-stats span { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--fw-muted); }
 .demo-reset { margin-top: 14px; }
 @media (min-width: 760px) { .demo-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+
+/* =====================================================================
+   049: FitWave в стиле визитки karpov.dev — тёмный cyber + жёлтый акцент
+   Локальные шрифты из визитки (OFL): Montserrat / Inter / JetBrains Mono.
+   ===================================================================== */
+@font-face {
+  font-family: "Montserrat"; font-style: normal; font-weight: 600 900;
+  font-display: swap; src: url("./fonts/montserrat-cyrillic-a187b077.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Montserrat"; font-style: normal; font-weight: 600 900;
+  font-display: swap; src: url("./fonts/montserrat-latin-06b16db7.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 700;
+  font-display: swap; src: url("./fonts/inter-cyrillic-71d5ee93.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 700;
+  font-display: swap; src: url("./fonts/inter-latin-3100e775.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-style: normal; font-weight: 400 600;
+  font-display: swap; src: url("./fonts/jetbrains-mono-cyrillic-e17cfd15.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-style: normal; font-weight: 400 600;
+  font-display: swap; src: url("./fonts/jetbrains-mono-latin-83c005d4.woff2") format("woff2");
+}
+
+body.landing-2025 {
+  --l-bg: #09090A;
+  --l-ink: #F5F1E2;
+  --l-graphite: #101012;
+  --l-terra: #FCD116;
+  --l-sage: #8E751D;
+  --l-line: rgba(252, 209, 22, .16);
+  --l-muted: #B9B28F;
+  --l-light: #F5F1E2;
+  --l-light-muted: #B9B28F;
+  background: #09090A; color: #F5F1E2;
+  font-family: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+body:not(.landing-2025) {
+  --fw-bg: #09090A;
+  --fw-surface: #17171A;
+  --fw-surface-alt: #101012;
+  --fw-text: #F5F1E2;
+  --fw-muted: #B9B28F;
+  --fw-primary: #FCD116;
+  --fw-primary-hover: #E3BC0E;
+  --fw-primary-text: #09090A;
+  --fw-accent: #8E751D;
+  --fw-border: rgba(252, 209, 22, .16);
+  --fw-border-strong: rgba(252, 209, 22, .36);
+  --fw-radius-sm: 10px;
+  --fw-radius-md: 14px;
+  --fw-radius-lg: 18px;
+  --fw-shadow-card: none;
+  --fw-shadow-raised: 0 0 0 1px rgba(252, 209, 22, .18), 0 18px 50px rgba(0, 0, 0, .5);
+  background: #09090A; color: #F5F1E2;
+  font-family: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* типографика: Montserrat display + mono-метки */
+body.landing-2025 .m-display,
+body.landing-2025 .m-h2,
+body.landing-2025 .m-final__title,
+body.landing-2025 .m-panel__title,
+body.landing-2025 .m-stats__item strong {
+  font-family: "Montserrat", "Inter", sans-serif;
+  font-stretch: normal; font-weight: 900; letter-spacing: -.03em;
+}
+body.landing-2025 .m-display em,
+body.landing-2025 .m-h2 em,
+body.landing-2025 .m-final__title em {
+  font-family: "Montserrat", sans-serif; font-style: normal; font-weight: 900;
+  text-transform: inherit; color: #FCD116;
+}
+body.landing-2025 .m-kicker,
+body.landing-2025 .m-eyebrow,
+body.landing-2025 .m-hero__foot,
+body.landing-2025 .m-panel__head,
+body.landing-2025 .m-stats__item span,
+body.landing-2025 .m-row__num,
+body.landing-2025 .m-ex__num,
+body.landing-2025 .m-foot {
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  letter-spacing: .1em;
+}
+body.landing-2025 .m-display,
+body.landing-2025 .m-h2,
+body.landing-2025 .m-final__title { text-transform: uppercase; }
+
+/* фон: сетка + жёлтое свечение как в визитке */
+body.landing-2025 .m-hero {
+  position: relative;
+  background:
+    radial-gradient(ellipse 60% 50% at 78% 0%, rgba(252, 209, 22, .14), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 10% 100%, rgba(142, 117, 29, .10), transparent 60%),
+    #09090A;
+}
+body.landing-2025 .m-hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(252, 209, 22, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(252, 209, 22, .05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, .9), transparent 80%);
+}
+body.landing-2025 .m-hero__grid { position: relative; }
+body.landing-2025 .m-header {
+  background: rgba(9, 9, 10, .86); border-bottom: 1px solid rgba(252, 209, 22, .14);
+}
+body.landing-2025 .m-nav a { color: #B9B28F; }
+body.landing-2025 .m-nav a:hover { color: #FCD116; border-bottom-color: #FCD116; }
+body.landing-2025 .m-logo { color: #F5F1E2; }
+body.landing-2025 .m-logo__dot { color: #FCD116; }
+body.landing-2025 .m-link { color: #B9B28F; }
+body.landing-2025 .m-btn--solid { background: #FCD116; color: #09090A; }
+body.landing-2025 .m-btn--solid:hover { background: #F5F1E2; color: #09090A; }
+body.landing-2025 .m-btn--ghost { color: #F5F1E2; border-color: rgba(252, 209, 22, .5); }
+body.landing-2025 .m-btn--ghost:hover { background: #FCD116; color: #09090A; border-color: #FCD116; }
+body.landing-2025 .ticker { background: #101012; }
+body.landing-2025 .ticker__track span { color: #B9B28F; }
+body.landing-2025 .ticker__track span[aria-hidden] { color: #FCD116; }
+
+/* панель «Сегодня»: терминальный вид */
+body.landing-2025 .m-hero__panel {
+  background: #101012; border: 1px solid rgba(252, 209, 22, .22);
+  box-shadow: 0 0 0 1px rgba(252, 209, 22, .06), 0 0 60px rgba(252, 209, 22, .10);
+}
+body.landing-2025 .m-chip { border-color: rgba(252, 209, 22, .45); color: #FCD116; }
+body.landing-2025 .m-bars span { background: linear-gradient(180deg, #FCD116, #8E751D); }
+body.landing-2025 .m-bars span:nth-child(even) { background: rgba(252, 209, 22, .22); }
+body.landing-2025 .m-panel__meta,
+body.landing-2025 .m-panel__note { color: #B9B28F; }
+
+/* цифры/секции */
+body.landing-2025 .m-stats { background: #101012; }
+body.landing-2025 .m-stats__item { border-left-color: rgba(252, 209, 22, .25); }
+body.landing-2025 .m-stats__item strong { color: #FCD116; }
+body.landing-2025 .m-row:hover { background: #FCD116; color: #09090A; }
+body.landing-2025 .m-row:hover p { color: rgba(9, 9, 10, .72); }
+body.landing-2025 .m-row__num { color: #FCD116; }
+body.landing-2025 .m-row:hover .m-row__num { color: #09090A; }
+body.landing-2025 .m-dark { background: #101012; }
+body.landing-2025 .m-cycle { background: #0C0C0E; }
+body.landing-2025 .m-ex__card { border-top-color: rgba(252, 209, 22, .2); }
+body.landing-2025 .m-ex__card picture { background: #0F0F11; border-color: rgba(252, 209, 22, .2); }
+body.landing-2025 .m-ex__card img {
+  filter: invert(1) sepia(1) saturate(6) hue-rotate(360deg) brightness(.98);
+}
+body.landing-2025 .m-final { background: #FCD116; color: #09090A; }
+body.landing-2025 .m-final__title,
+body.landing-2025 .m-final__title em { color: #09090A; }
+body.landing-2025 .m-final__text { color: rgba(9, 9, 10, .72); }
+body.landing-2025 .m-final .m-btn--solid { background: #09090A; color: #FCD116; }
+body.landing-2025 .m-final .m-btn--solid:hover { background: #17171A; color: #F5F1E2; }
+body.landing-2025 .m-final .m-btn--ghost { color: #09090A; border-color: rgba(9, 9, 10, .55); }
+body.landing-2025 .m-final .m-btn--ghost:hover { background: #09090A; color: #FCD116; }
+body.landing-2025 .m-foot { background: #09090A; }
+
+/* внутренние экраны: тёмная тема визитки */
+body:not(.landing-2025) .topnav,
+body:not(.landing-2025) .admin-nav {
+  background: rgba(9, 9, 10, .9); border-bottom-color: rgba(252, 209, 22, .14);
+}
+body:not(.landing-2025) .topnav a:not(.topnav__brand),
+body:not(.landing-2025) .admin-nav a:not(.topnav__brand) { color: #B9B28F; }
+body:not(.landing-2025) .topnav a:not(.topnav__brand):hover,
+body:not(.landing-2025) .admin-nav a:not(.topnav__brand):hover {
+  color: #FCD116; border-bottom-color: #FCD116;
+}
+body:not(.landing-2025) .topnav a[aria-current="page"],
+body:not(.landing-2025) .admin-nav a[aria-current="page"] {
+  color: #FCD116; border-bottom-color: #FCD116;
+}
+body:not(.landing-2025) .topnav__brand { color: #F5F1E2; }
+body:not(.landing-2025) .card {
+  background: #17171A; border-color: rgba(252, 209, 22, .16);
+}
+body:not(.landing-2025) .card:hover { border-color: rgba(252, 209, 22, .36); }
+body:not(.landing-2025) h1,
+body:not(.landing-2025) h2 {
+  font-family: "Montserrat", "Inter", sans-serif; font-stretch: normal;
+  color: #F5F1E2;
+}
+body:not(.landing-2025) .draft-banner { background: #FCD116; color: #09090A; }
+body:not(.landing-2025) .button { background: #FCD116; color: #09090A; }
+body:not(.landing-2025) .button:hover { background: #F5F1E2; color: #09090A; }
+body:not(.landing-2025) .button.secondary { background: transparent; color: #FCD116; border-color: rgba(252, 209, 22, .5); }
+body:not(.landing-2025) .button.secondary:hover { background: #FCD116; color: #09090A; }
+body:not(.landing-2025) .button.ghost { color: #F5F1E2; border-color: rgba(252, 209, 22, .28); }
+body:not(.landing-2025) .button.ghost:hover { background: #FCD116; color: #09090A; border-color: #FCD116; }
+body:not(.landing-2025) input,
+body:not(.landing-2025) select,
+body:not(.landing-2025) textarea {
+  background: #101012; color: #F5F1E2; border-color: rgba(252, 209, 22, .22);
+}
+body:not(.landing-2025) input:focus,
+body:not(.landing-2025) select:focus,
+body:not(.landing-2025) textarea:focus { border-color: #FCD116; outline-color: #FCD116; }
+body:not(.landing-2025) .mock-tag { background: #FCD116; color: #09090A; }
+body:not(.landing-2025) .plan-day { border-bottom-color: rgba(252, 209, 22, .14); }
+body:not(.landing-2025) .plan-day .day { color: #FCD116; }
+body:not(.landing-2025) .muted { color: #B9B28F; }
+body:not(.landing-2025) .placeholder-box { background: #101012; border-color: rgba(252, 209, 22, .18); color: #B9B28F; }
+body:not(.landing-2025) .disclaimer { border-top-color: rgba(252, 209, 22, .16); color: #B9B28F; }
+body:not(.landing-2025) th,
+body:not(.landing-2025) td { border-bottom-color: rgba(252, 209, 22, .14); }
+body:not(.landing-2025) .skip-link { background: #FCD116; color: #09090A; }
+
+/* auth/кабинет */
+body:not(.landing-2025) .auth-side { background: #101012; border-right: 1px solid rgba(252, 209, 22, .16); }
+body:not(.landing-2025) .auth-display,
+body:not(.landing-2025) .dash-hero h1 {
+  font-family: "Montserrat", sans-serif; font-stretch: normal; font-weight: 900;
+  text-transform: uppercase; color: #F5F1E2;
+}
+body:not(.landing-2025) .auth-display em,
+body:not(.landing-2025) .dash-hero h1 em {
+  font-family: "Montserrat", sans-serif; font-style: normal; font-weight: 900;
+  text-transform: inherit; color: #FCD116;
+}
+body:not(.landing-2025) .auth-wrap { background: #17171A; border-color: rgba(252, 209, 22, .18); }
+body:not(.landing-2025) .auth-tab.is-active { color: #FCD116; border-bottom-color: #FCD116; }
+body:not(.landing-2025) .auth-kicker,
+body:not(.landing-2025) .dash-kicker { font-family: "JetBrains Mono", monospace; color: #B9B28F; }
+body:not(.landing-2025) .auth-google { background: #101012; color: #F5F1E2; border-color: rgba(252, 209, 22, .3); }
+body:not(.landing-2025) .auth-google:hover { border-color: #FCD116; }
+body:not(.landing-2025) .dash-hero {
+  background:
+    radial-gradient(ellipse 55% 70% at 85% 0%, rgba(252, 209, 22, .16), transparent 60%),
+    #101012;
+  border: 1px solid rgba(252, 209, 22, .18);
+}
+body:not(.landing-2025) .dash-hero .button.secondary { color: #FCD116; border-color: rgba(252, 209, 22, .5); }
+body:not(.landing-2025) .dash-hero .button.secondary:hover { background: #FCD116; color: #09090A; }
+body:not(.landing-2025) .dash-hero .button.ghost { color: #F5F1E2; border-color: rgba(252, 209, 22, .25); }
+body:not(.landing-2025) .dash-card { background: #17171A; border-color: rgba(252, 209, 22, .16); }
+body:not(.landing-2025) .dash-card:hover { background: #FCD116; color: #09090A; border-color: #FCD116; }
+body:not(.landing-2025) .dash-card__num { color: #FCD116; }
+body:not(.landing-2025) .dash-card:hover .dash-card__num,
+body:not(.landing-2025) .dash-card:hover .dash-card__link { color: #09090A; }
+body:not(.landing-2025) .demo-status { background: #101012; border-color: rgba(252, 209, 22, .18); border-left-color: #FCD116; color: #B9B28F; }
+body:not(.landing-2025) .demo-entry { background: #101012; border-color: rgba(252, 209, 22, .16); }
+body:not(.landing-2025) .demo-done { border-color: rgba(252, 209, 22, .35); color: #FCD116; }
+body:not(.landing-2025) .demo-done[aria-pressed="true"] { background: #FCD116; color: #09090A; }
+body:not(.landing-2025) .plan-day.is-done { background: rgba(252, 209, 22, .06); }
+body:not(.landing-2025) .plan-day.is-done .day { color: #FCD116; }
+body:not(.landing-2025) .demo-stats strong { color: #FCD116; }
+@media (max-width: 720px) {
+  body:not(.landing-2025) .topnav,
+  body:not(.landing-2025) .admin-nav {
+    background: rgba(9, 9, 10, .97); border-top-color: rgba(252, 209, 22, .16);
+  }
+  body:not(.landing-2025) .topnav a:not(.topnav__brand),
+  body:not(.landing-2025) .admin-nav a:not(.topnav__brand) { color: #B9B28F; }
+  body:not(.landing-2025) .topnav a[aria-current="page"],
+  body:not(.landing-2025) .admin-nav a[aria-current="page"] { color: #FCD116; }
+}
