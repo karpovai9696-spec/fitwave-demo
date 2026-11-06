@@ -164,6 +164,16 @@
         var rows = document.querySelectorAll(".plan-day");
         rows.forEach(function (r) { r.remove(); });
         var labels = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+        var done = data.days.filter(function (x) { return x.completed; }).length;
+        var st = document.querySelector("[data-demo-status]");
+        if (!st) {
+          st = document.createElement("p");
+          st.className = "demo-status";
+          st.setAttribute("data-demo-status", "");
+          main.insertBefore(st, main.firstChild);
+        }
+        st.textContent = "Отмечено " + done + " из " + data.days.length +
+          " дней (сервер).";
         data.days.forEach(function (d) {
           var row = document.createElement("div");
           row.className = "plan-day";
