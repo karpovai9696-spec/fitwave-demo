@@ -1,3 +1,4 @@
-/* Public beta API endpoint (Cloudflare-less localhost.run tunnel on 227).
-   Ephemeral: update this file when the tunnel URL changes. */
-window.FITWAVE_API_BASE = "https://3fd3c257a5a39d.lhr.life";
+/* Public beta API endpoint (localhost.run tunnel on 227).
+   Ephemeral: update this file when the tunnel URL changes; the 227 keepalive
+   cron pings it to avoid inactivity timeouts. */
+window.FITWAVE_API_BASE = "https://f9c100853c999e.lhr.life";
