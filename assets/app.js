@@ -367,3 +367,303 @@
   }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
   nodes.forEach(function (n) { io.observe(n); });
 })();
+
+
+/* ================================================================
+   048: demo client session (sessionStorage, tab-scoped, resettable).
+   No network, no cookies, no localStorage, no analytics. The data is a
+   DRAFT demo; it disappears when the tab closes and can be reset.
+   ================================================================ */
+(function () {
+  "use strict";
+  var KEY = "fitwave.demo.v2";
+  var mem = null;
+
+  function read() {
+    if (mem) { return mem; }
+    try {
+      var raw = sessionStorage.getItem(KEY);
+      mem = raw ? JSON.parse(raw) : null;
+    } catch (e) { mem = null; }
+    if (!mem || typeof mem !== "object") {
+      mem = { user: null, profile: {}, completed: { week: [], sessions: 0 },
+              cycle: [], wellness: [], createdAt: new Date().toISOString() };
+    }
+    return mem;
+  }
+  function write() {
+    try { sessionStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) {}
+    return mem;
+  }
+  function reset() {
+    mem = null;
+    try { sessionStorage.removeItem(KEY); } catch (e) {}
+  }
+  var api = {
+    get: function () { return read(); },
+    user: function () { return read().user; },
+    setUser: function (u) { read().user = u || null; write(); return read(); },
+    reset: reset
+  };
+  window.FitWaveDemo = api;
+
+  var here = location.pathname.split("/").pop() || "index.html";
+
+  function fmtDate(iso) {
+    try {
+      return new Date(iso).toLocaleDateString("ru-RU",
+        { day: "2-digit", month: "short" });
+    } catch (e) { return iso; }
+  }
+  function userLabel() {
+    var u = api.user();
+    if (!u) { return "Гость демо-режима"; }
+    return (u.name ? u.name : "Демо-пользователь") +
+      (u.method === "google" ? " · Google (демо)" : " · демо-аккаунт");
+  }
+  function ensureStatus(where) {
+    var el = document.querySelector("[data-demo-status]");
+    if (!el) {
+      el = document.createElement("p");
+      el.className = "demo-status";
+      el.setAttribute("data-demo-status", "");
+      where.insertBefore(el, where.firstChild.nextSibling || where.firstChild);
+    }
+    return el;
+  }
+
+  // ---- login page: persist the demo user chosen by the inline auth form ----
+  document.querySelectorAll("[data-auth-panel]").forEach(function (form) {
+    form.addEventListener("submit", function () {
+      var email = form.querySelector('input[type="email"]');
+      var name = form.querySelector('input[type="text"]');
+      var mode = form.getAttribute("data-auth-panel") === "register";
+      api.setUser({
+        email: email ? email.value : "",
+        name: name ? name.value.trim() : "",
+        method: "demo",
+        mode: mode ? "register" : "login",
+        at: new Date().toISOString()
+      });
+    }, true);
+  });
+
+  // ---- cabinet dashboard ----
+  if (here === "plan-home.html") {
+    var st = api.get();
+    document.querySelectorAll("[data-demo-session]").forEach(function (el) {
+      el.textContent = "Вы вошли как " + userLabel() + ". Демо-данные живут " +
+        "только в этой вкладке браузера и удаляются при её закрытии.";
+    });
+    var main = document.querySelector("main");
+    if (main) {
+      var status = ensureStatus(main);
+      status.textContent = "Пройдено сессий: " + (st.completed.sessions || 0) +
+        " · отметок цикла: " + st.cycle.length +
+        " · сигналов самочувствия: " + st.wellness.length;
+      var resetBtn = document.createElement("button");
+      resetBtn.type = "button";
+      resetBtn.className = "button ghost demo-reset";
+      resetBtn.textContent = "Сбросить демо-данные";
+      resetBtn.addEventListener("click", function () {
+        reset();
+        location.reload();
+      });
+      var lastCard = main.querySelector(".card:last-of-type");
+      if (lastCard) { lastCard.appendChild(resetBtn); }
+    }
+  }
+
+  // ---- plan week: mark days done ----
+  if (here === "plan-week.html") {
+    var days = document.querySelectorAll(".plan-day");
+    var week = api.get().completed.week || [];
+    var head = document.querySelector("main");
+    var statusW = head ? ensureStatus(head) : null;
+    function weekStatus() {
+      if (statusW) {
+        statusW.textContent = "Выполнено " + week.length + " из " +
+          days.length + " дней (демо, sessionStorage).";
+      }
+    }
+    days.forEach(function (row, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "demo-done";
+      btn.setAttribute("aria-pressed", week.indexOf(i) >= 0 ? "true" : "false");
+      btn.textContent = week.indexOf(i) >= 0 ? "Готово" : "Отметить";
+      btn.addEventListener("click", function () {
+        var idx = week.indexOf(i);
+        if (idx >= 0) { week.splice(idx, 1); } else { week.push(i); }
+        api.get().completed.week = week;
+        sessionStorage.setItem(KEY, JSON.stringify(api.get()));
+        btn.setAttribute("aria-pressed", week.indexOf(i) >= 0 ? "true" : "false");
+        btn.textContent = week.indexOf(i) >= 0 ? "Готово" : "Отметить";
+        row.classList.toggle("is-done", week.indexOf(i) >= 0);
+        weekStatus();
+      });
+      if (week.indexOf(i) >= 0) { row.classList.add("is-done"); }
+      row.appendChild(btn);
+    });
+    weekStatus();
+  }
+
+  // ---- session: count completed sessions ----
+  if (here === "plan-session.html") {
+    var sessionForm = document.querySelector('form[data-demo="session"]');
+    if (sessionForm) {
+      sessionForm.addEventListener("submit", function () {
+        var st2 = api.get();
+        st2.completed.sessions = (st2.completed.sessions || 0) + 1;
+        sessionStorage.setItem(KEY, JSON.stringify(st2));
+        var note = sessionForm.querySelector("[data-demo-note]");
+        if (note) {
+          note.textContent = "Сессия отмечена в демо-состоянии этой вкладки. " +
+            "Всего сессий: " + st2.completed.sessions + ".";
+          note.hidden = false;
+        }
+      }, true);
+    }
+  }
+
+  // ---- cycle diary ----
+  if (here === "cycle-entry.html") {
+    var cycleForm = document.querySelector('form[data-demo="cycle-entry"]');
+    if (cycleForm) {
+      var list = document.createElement("div");
+      list.className = "demo-list";
+      list.setAttribute("aria-live", "polite");
+      cycleForm.parentNode.insertBefore(list, cycleForm.nextSibling);
+      function renderCycle() {
+        var entries = api.get().cycle;
+        list.innerHTML = "";
+        if (!entries.length) {
+          list.innerHTML = '<p class="muted">Пока нет отметок в этой демо-сессии.</p>';
+          return;
+        }
+        entries.slice().reverse().forEach(function (e) {
+          var row = document.createElement("div");
+          row.className = "demo-entry";
+          row.textContent = fmtDate(e.date) + " · " + (e.flow || "без потока") +
+            (e.symptoms && e.symptoms.length ? " · " + e.symptoms.join(", ") : "") +
+            (e.note ? " · " + e.note : "");
+          list.appendChild(row);
+        });
+      }
+      cycleForm.addEventListener("submit", function () {
+        var dateEl = cycleForm.querySelector("#day");
+        var noteEl = cycleForm.querySelector("#note");
+        var flowEl = cycleForm.querySelector('input[name="flow"]:checked');
+        var symptoms = Array.prototype.map.call(
+          cycleForm.querySelectorAll('input[type="checkbox"]:checked'),
+          function (c) { return c.parentNode.textContent.trim(); });
+        api.get().cycle.push({
+          date: (dateEl && dateEl.value) ? dateEl.value : new Date().toISOString(),
+          flow: flowEl ? flowEl.parentNode.textContent.trim() : "",
+          symptoms: symptoms,
+          note: noteEl ? noteEl.value : ""
+        });
+        sessionStorage.setItem(KEY, JSON.stringify(api.get()));
+        renderCycle();
+      }, true);
+      renderCycle();
+    }
+  }
+
+  // ---- wellness signals ----
+  if (here === "wellness-illness-entry.html") {
+    var wForm = document.querySelector('form[data-demo="wellness"]');
+    if (wForm) {
+      var wList = document.createElement("div");
+      wList.className = "demo-list";
+      wForm.parentNode.insertBefore(wList, wForm.nextSibling);
+      function renderWellness() {
+        var entries = api.get().wellness;
+        wList.innerHTML = "";
+        if (!entries.length) {
+          wList.innerHTML = '<p class="muted">Сигналов самочувствия пока нет.</p>';
+          return;
+        }
+        entries.slice().reverse().forEach(function (e) {
+          var row = document.createElement("div");
+          row.className = "demo-entry";
+          row.textContent = fmtDate(e.at) + " · " + e.feel +
+            (e.sleep ? " · сон: " + e.sleep : "") +
+            (e.note ? " · " + e.note : "");
+          wList.appendChild(row);
+        });
+      }
+      wForm.addEventListener("submit", function () {
+        var feelEl = wForm.querySelector('input[name="feel"]:checked');
+        var sleepEl = wForm.querySelector("#sleep");
+        var noteEl = wForm.querySelector("#illnote");
+        api.get().wellness.push({
+          at: new Date().toISOString(),
+          feel: feelEl ? feelEl.parentNode.textContent.trim() : "не отмечено",
+          sleep: sleepEl ? sleepEl.value : "",
+          note: noteEl ? noteEl.value : ""
+        });
+        sessionStorage.setItem(KEY, JSON.stringify(api.get()));
+        renderWellness();
+      }, true);
+      renderWellness();
+    }
+  }
+
+  // ---- progress: computed demo stats ----
+  if (here === "progress.html") {
+    var mainP = document.querySelector("main");
+    if (mainP) {
+      var stP = api.get();
+      var card = document.createElement("section");
+      card.className = "card";
+      card.innerHTML = "<h2>Ваша демо-статистика</h2>" +
+        '<div class="demo-stats">' +
+        "<div><strong>" + (stP.completed.sessions || 0) + "</strong><span>сессий отмечено</span></div>" +
+        "<div><strong>" + (stP.completed.week || []).length + "</strong><span>дней недели готово</span></div>" +
+        "<div><strong>" + stP.cycle.length + "</strong><span>отметок цикла</span></div>" +
+        "<div><strong>" + stP.wellness.length + "</strong><span>сигналов самочувствия</span></div>" +
+        "</div><p class='muted'>Демо-данные живут только в этой вкладке и " +
+        "удаляются при её закрытии.</p>";
+      mainP.insertBefore(card, mainP.firstChild.nextSibling);
+    }
+  }
+
+  // ---- profile: save name/experience/days ----
+  if (here === "profile-setup.html") {
+    var pForm = document.querySelector('form[data-demo="profile"]');
+    if (pForm) {
+      pForm.addEventListener("submit", function () {
+        var nameEl = pForm.querySelector("#display-name");
+        var expEl = pForm.querySelector('input[name="exp"]:checked');
+        var daysSel = Array.prototype.map.call(
+          pForm.querySelectorAll('input[type="checkbox"]:checked'),
+          function (c) { return c.parentNode.textContent.trim(); });
+        var st3 = api.get();
+        st3.profile = {
+          name: nameEl ? nameEl.value.trim() : "",
+          exp: expEl ? expEl.parentNode.textContent.trim() : "",
+          days: daysSel
+        };
+        if (st3.user && st3.profile.name) { st3.user.name = st3.profile.name; }
+        sessionStorage.setItem(KEY, JSON.stringify(st3));
+        var note = pForm.querySelector("[data-demo-note]");
+        if (note) {
+          note.textContent = "Профиль сохранён в демо-состоянии этой вкладки.";
+          note.hidden = false;
+        }
+      }, true);
+    }
+  }
+
+  // ---- logout clears the demo session ----
+  document.querySelectorAll(".topnav a").forEach(function (a) {
+    if ((a.textContent || "").trim() === "Выйти") {
+      a.addEventListener("click", function () {
+        var st4 = api.get();
+        st4.user = null;
+        sessionStorage.setItem(KEY, JSON.stringify(st4));
+      });
+    }
+  });
+})();

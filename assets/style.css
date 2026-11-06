@@ -1337,3 +1337,18 @@ body:not(.landing-2025) .dash-card h2 {
   letter-spacing: -.01em; line-height: 1.15; overflow-wrap: anywhere;
 }
 body:not(.landing-2025) .dash-card { gap: 8px; }
+
+/* 048: demo client-state UI */
+.demo-status { margin: 0 0 14px; padding: 12px 14px; border: 1px solid var(--fw-border); border-left: 3px solid var(--fw-primary); background: #fff; font-size: 13px; color: var(--fw-muted); }
+.demo-done { margin-left: auto; flex: 0 0 auto; min-height: 34px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--fw-border-strong); background: transparent; color: var(--fw-text); font: inherit; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.demo-done[aria-pressed="true"] { background: #141413; color: #F6F4F0; border-color: #141413; }
+.plan-day.is-done { background: rgba(38,92,75,.06); }
+.plan-day.is-done .day { color: #265C4B; }
+.demo-list { margin: 14px 0 0; display: grid; gap: 6px; }
+.demo-entry { padding: 9px 12px; border: 1px solid var(--fw-border); border-radius: 4px; background: #fff; font-size: 13px; color: var(--fw-text); }
+.demo-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 10px 0 14px; }
+.demo-stats > div { border-top: 1px solid var(--fw-border); padding-top: 8px; display: flex; flex-direction: column; }
+.demo-stats strong { font-family: "Arial Narrow", Arial, sans-serif; font-size: 2rem; line-height: 1; color: var(--fw-primary); }
+.demo-stats span { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--fw-muted); }
+.demo-reset { margin-top: 14px; }
+@media (min-width: 760px) { .demo-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
