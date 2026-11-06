@@ -1217,3 +1217,123 @@ body:not(.landing-2025) h1:focus-visible { outline: none; }
 body:not(.landing-2025) .topnav, body:not(.landing-2025) .admin-nav { scrollbar-width: none; }
 body:not(.landing-2025) .topnav::-webkit-scrollbar,
 body:not(.landing-2025) .admin-nav::-webkit-scrollbar { display: none; }
+
+
+/* ====== 047: упрощённая карта сайта — welcome → auth → кабинет ====== */
+.topnav--min { gap: 14px; }
+body.auth-page main { max-width: 1180px; }
+body.auth-page .topnav { position: static; background: transparent; border-bottom: 1px solid var(--fw-border); }
+.auth-wrap {
+  display: grid; grid-template-columns: 1fr; gap: 0;
+  margin: 26px auto 40px; border: 1px solid var(--fw-border);
+  background: var(--fw-surface); border-radius: 6px; overflow: hidden;
+}
+.auth-side { background: #141413; color: #F6F4F0; padding: clamp(24px, 4vw, 44px); }
+.auth-kicker { margin: 0 0 14px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(246,244,240,.6); }
+.auth-display {
+  margin: 0 0 18px; color: #F6F4F0;
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  font-stretch: condensed; font-weight: 900; text-transform: uppercase;
+  font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: .94; letter-spacing: -.02em;
+}
+.auth-display em { font-family: Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; color: #E04F33; }
+.auth-lead { color: rgba(246,244,240,.78); max-width: 42ch; line-height: 1.6; }
+.auth-points { margin: 18px 0; padding-left: 18px; display: grid; gap: 8px; color: rgba(246,244,240,.72); font-size: 14px; }
+.auth-note { margin: 20px 0 0; padding-top: 14px; border-top: 1px solid rgba(246,244,240,.16); font-size: 11px; line-height: 1.55; color: rgba(246,244,240,.55); }
+.auth-card { padding: clamp(24px, 4vw, 44px); }
+.auth-tabs { display: flex; gap: 6px; margin: 0 0 22px; border-bottom: 1px solid var(--fw-border); }
+.auth-tab {
+  appearance: none; background: transparent; border: 0; border-bottom: 2px solid transparent;
+  padding: 12px 4px; margin-right: 18px; font: inherit; font-size: 13px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--fw-muted); cursor: pointer;
+}
+.auth-tab.is-active { color: var(--fw-text); border-bottom-color: var(--fw-primary); }
+.auth-form { display: grid; gap: 10px; }
+.auth-form label { margin-top: 8px; }
+.auth-form .button { margin-top: 12px; width: 100%; }
+.auth-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; color: var(--fw-muted); text-transform: none; letter-spacing: 0; font-weight: 400; }
+.auth-consent input { width: 18px; min-height: 18px; height: 18px; margin-top: 3px; flex: 0 0 auto; }
+.auth-hint { margin: 0; font-size: 12px; color: var(--fw-muted); }
+.auth-links { margin: 4px 0 0; font-size: 13px; }
+.auth-divider { display: flex; align-items: center; gap: 12px; margin: 22px 0 16px; color: var(--fw-muted); font-size: 11px; text-transform: uppercase; letter-spacing: .12em; }
+.auth-divider::before, .auth-divider::after { content: ""; flex: 1; height: 1px; background: var(--fw-border); }
+.auth-google {
+  width: 100%; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: #fff; color: #141413; border: 1px solid var(--fw-border-strong);
+  border-radius: 999px; font: inherit; font-size: 14px; font-weight: 650; cursor: pointer;
+}
+.auth-google:hover { border-color: #141413; }
+.auth-demo { margin: 16px 0 0; font-size: 11px; line-height: 1.55; color: var(--fw-muted); }
+
+.dash-hero { background: #141413; color: #F6F4F0; padding: clamp(24px, 4vw, 44px); border-radius: 6px; margin-bottom: 18px; }
+.dash-kicker { margin: 0 0 12px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(246,244,240,.6); }
+.dash-hero h1 {
+  margin: 0 0 14px; color: #F6F4F0;
+  font-family: "Arial Narrow", Arial, sans-serif; font-stretch: condensed;
+  text-transform: uppercase; font-weight: 900; font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: .94; letter-spacing: -.02em;
+}
+.dash-hero h1 em { font-family: Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; color: #E04F33; }
+.dash-hero .muted { color: rgba(246,244,240,.66); }
+.dash-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.dash-hero .button.secondary { color: #F6F4F0; border-color: rgba(246,244,240,.5); }
+.dash-hero .button.secondary:hover { background: #F6F4F0; color: #141413; }
+.dash-hero .button.ghost { color: #F6F4F0; border-color: rgba(246,244,240,.28); }
+.dash-hero .placeholder-box { background: rgba(246,244,240,.06); border-color: rgba(246,244,240,.16); color: rgba(246,244,240,.62); }
+.dash-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 18px; }
+.dash-card {
+  display: flex; flex-direction: column; gap: 6px; padding: 20px;
+  background: var(--fw-surface); border: 1px solid var(--fw-border); border-radius: 6px;
+  color: var(--fw-text); text-decoration: none;
+}
+.dash-card:hover { background: #141413; color: #F6F4F0; border-color: #141413; }
+.dash-card__num { font-size: 11px; letter-spacing: .12em; color: var(--fw-primary); }
+.dash-card h2 { margin: 0; font-size: 1.15rem; }
+.dash-card p { margin: 0; color: var(--fw-muted); font-size: 13px; line-height: 1.5; }
+.dash-card:hover p { color: rgba(246,244,240,.66); }
+.dash-card__link { margin-top: auto; padding-top: 10px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--fw-primary); }
+@media (min-width: 760px) {
+  .auth-wrap { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
+  .dash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1080px) {
+  .dash-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  body.auth-page .topnav { position: static; background: rgba(246,244,240,.92); border-bottom: 1px solid var(--fw-border); }
+  body.auth-page .topnav a:not(.topnav__brand) { color: var(--fw-muted); }
+}
+
+/* 047 fix: внутренняя тема имеет body:not() специфичность — усиливаем тёмные блоки */
+body:not(.landing-2025) .auth-display {
+  color: #F6F4F0; font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  font-stretch: condensed; font-weight: 900; text-transform: uppercase;
+  font-size: clamp(2rem, 4.4vw, 3.6rem); line-height: .94; letter-spacing: -.02em;
+}
+body:not(.landing-2025) .auth-display em {
+  font-family: Georgia, serif; font-style: italic; font-weight: 400;
+  text-transform: none; color: #E04F33;
+}
+body:not(.landing-2025) .dash-hero h1 {
+  color: #F6F4F0; font-family: "Arial Narrow", Arial, sans-serif;
+  font-stretch: condensed; text-transform: uppercase; font-weight: 900;
+  font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: .94; letter-spacing: -.02em;
+}
+body:not(.landing-2025) .dash-hero h1 em {
+  font-family: Georgia, serif; font-style: italic; font-weight: 400;
+  text-transform: none; color: #E04F33;
+}
+body:not(.landing-2025) .dash-hero .button.secondary {
+  color: #F6F4F0; border-color: rgba(246,244,240,.5);
+}
+body:not(.landing-2025) .dash-hero .button.secondary:hover {
+  background: #F6F4F0; color: #141413;
+}
+body:not(.landing-2025) .dash-hero .button.ghost {
+  color: #F6F4F0; border-color: rgba(246,244,240,.28);
+}
+body:not(.landing-2025) .dash-card h2 {
+  text-transform: none; font-size: 1.05rem; font-weight: 750;
+  letter-spacing: -.01em; line-height: 1.15; overflow-wrap: anywhere;
+}
+body:not(.landing-2025) .dash-card { gap: 8px; }

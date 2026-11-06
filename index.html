@@ -25,16 +25,9 @@
 
 <header class="m-header">
   <a class="m-logo" href="index.html">FitWave<span class="m-logo__dot">.</span></a>
-  <nav class="m-nav" aria-label="Экраны макета">
-    <a href="plan-home.html">План</a>
-    <a href="cycle-entry.html">Цикл</a>
-    <a href="wellness-illness-entry.html">Самочувствие</a>
-    <a href="progress.html">Прогресс</a>
-    <a href="support-list.html">Поддержка</a>
-  </nav>
   <div class="m-header__actions">
-    <a class="m-link" href="login.html">Войти</a>
-    <a class="m-btn m-btn--solid" href="register.html">Создать аккаунт (демо)</a>
+    <a class="m-link" href="login.html?mode=login">Войти</a>
+    <a class="m-btn m-btn--solid" href="login.html?mode=register">Создать аккаунт (демо)</a>
   </div>
 </header>
 
@@ -48,8 +41,8 @@
         <p class="m-lead">Планы, которые учитывают цикл, энергию и самочувствие.
           Без марафонов, рекордов и чувства вины за пропущенный день.</p>
         <div class="m-cta">
-          <a class="m-btn m-btn--solid" href="register.html">Создать аккаунт (демо)</a>
-          <a class="m-btn m-btn--ghost" href="login.html">Войти (демо)</a>
+          <a class="m-btn m-btn--solid" href="login.html?mode=register">Создать аккаунт (демо)</a>
+          <a class="m-btn m-btn--ghost" href="login.html?mode=login">Войти (демо)</a>
         </div>
       </div>
       <aside class="m-hero__panel reveal" aria-label="Пример плана на сегодня">
@@ -246,7 +239,7 @@
     </ul>
   </section>
 
-  <section class="m-section">
+  <section class="m-section" id="faq">
     <div class="m-section__head reveal">
       <p class="m-kicker">08 / Частые вопросы</p>
       <h2 class="m-h2">Коротко<br>о важном</h2>
@@ -275,15 +268,15 @@
     <p class="m-final__text reveal">Пройдите по демо-экранам — без регистрации,
       платежей и отправки данных.</p>
     <div class="m-cta reveal">
-      <a class="m-btn m-btn--solid" href="register.html">Создать аккаунт (демо)</a>
-      <a class="m-btn m-btn--ghost" href="login.html">Войти (демо)</a>
+      <a class="m-btn m-btn--solid" href="login.html?mode=register">Создать аккаунт (демо)</a>
+      <a class="m-btn m-btn--ghost" href="login.html?mode=login">Войти (демо)</a>
     </div>
   </section>
 
   <footer class="m-foot">
     <span>FitWave · ЧЕРНОВИК · 2025</span>
     <span>Медицинское ограничение FW-IR-001</span>
-    <a href="support-list.html">Поддержка</a>
+    <span>Поддержка</span>
   </footer>
 </main>
 
