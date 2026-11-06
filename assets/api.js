@@ -314,17 +314,26 @@
         var exp = pform.querySelector('input[name="exp"][value="' +
           me.profile.experience + '"]');
         if (exp) { exp.checked = true; }
-        var goal = pform.querySelector("#goal");
-        if (goal) { goal.value = me.profile.goal || ""; }
+        var dayMap = { "Пн": "mon", "Вт": "tue", "Ср": "wed", "Чт": "thu",
+          "Пт": "fri", "Сб": "sat", "Вс": "sun" };
+        pform.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+          var label = (cb.parentNode.textContent || "").trim();
+          var code = dayMap[label];
+          if (code) { cb.checked = (me.profile.days || []).indexOf(code) >= 0; }
+        });
       }).catch(function () {});
       pform.addEventListener("submit", function (ev) {
         ev.preventDefault();
         ev.stopImmediatePropagation();
         var name = pform.querySelector("#display-name");
         var exp = pform.querySelector('input[name="exp"]:checked');
+        var dayCodes = { "Пн": "mon", "Вт": "tue", "Ср": "wed", "Чт": "thu",
+          "Пт": "fri", "Сб": "sat", "Вс": "sun" };
         var days = Array.prototype.map.call(
           pform.querySelectorAll('input[type="checkbox"]:checked'),
-          function (c) { return c.parentNode.textContent.trim(); });
+          function (c) {
+            return dayCodes[(c.parentNode.textContent || "").trim()] || "";
+          }).filter(Boolean);
         api("/api/me/profile", { method: "PUT", body: {
           name: name ? name.value.trim() : "",
           experience: exp ? exp.value : "beginner",
@@ -336,6 +345,48 @@
             if (note) { note.textContent = "Ошибка: " + e.message; note.hidden = false; }
           });
       }, true);
+    }
+  }
+
+  // profile: data export / account deletion (privacy)
+  if (here === "profile-setup.html" && token()) {
+    var mainP = document.querySelector("main");
+    if (mainP) {
+      var box = document.createElement("section");
+      box.className = "card";
+      box.innerHTML = "<h2>Данные и аккаунт</h2>" +
+        "<p class='muted'>Бета: вы можете скачать свои данные или удалить " +
+        "аккаунт вместе со всеми записями. Это не заменяет юридическую " +
+        "политику и не является медицинским сервисом (FW-IR-001).</p>";
+      var dl = document.createElement("button");
+      dl.type = "button"; dl.className = "button secondary";
+      dl.textContent = "Скачать мои данные (JSON)";
+      dl.addEventListener("click", function () {
+        fetch(base + "/api/me/export", {
+          headers: { "Authorization": "Bearer " + token() },
+          cache: "no-store"
+        }).then(function (r) { return r.blob(); }).then(function (blob) {
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "fitwave-my-data.json";
+          document.body.appendChild(a); a.click(); a.remove();
+        }).catch(function () { alert("Не удалось скачать данные."); });
+      });
+      var del = document.createElement("button");
+      del.type = "button"; del.className = "button ghost";
+      del.textContent = "Удалить аккаунт и данные";
+      del.style.marginLeft = "10px";
+      del.addEventListener("click", function () {
+        if (!confirm("Удалить аккаунт и все демо-данные без возможности восстановления?")) { return; }
+        api("/api/me", { method: "DELETE", body: { confirm: "DELETE" } })
+          .then(function () {
+            setAuth(null);
+            alert("Аккаунт удалён.");
+            location.href = "index.html";
+          }).catch(function (e) { alert("Ошибка удаления: " + e.message); });
+      });
+      box.appendChild(dl); box.appendChild(del);
+      mainP.appendChild(box);
     }
   }
 
