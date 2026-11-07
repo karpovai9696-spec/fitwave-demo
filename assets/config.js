@@ -1,5 +1,5 @@
 /* Public beta API endpoint (localhost.run tunnel on 227).
    Ephemeral: update this file when the tunnel URL changes; the 227 keepalive
    cron pings it to avoid inactivity timeouts. */
-window.FITWAVE_API_BASE = "https://ca377e3a3d154a.lhr.life";
+window.FITWAVE_API_BASE = "https://70cc566ea36e8e.lhr.life";
 
