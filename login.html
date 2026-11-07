@@ -57,18 +57,37 @@
                placeholder="Имя (только демо)">
         <label for="reg-email">Электронная почта</label>
         <input id="reg-email" type="email" name="email" autocomplete="off"
-               placeholder="demo@example.ru">
+               placeholder="you@example.ru">
         <label for="reg-password">Пароль</label>
         <input id="reg-password" type="password" name="password"
-               autocomplete="off" placeholder="минимум 4 символа (демо)">
+               autocomplete="new-password" placeholder="минимум 8 символов">
         <label class="auth-consent">
           <input type="checkbox" name="consent">
-          <span>Согласен(на) на обработку данных в демо-режиме. Это макет,
-            ничего не отправляется.</span>
+          <span>Согласен(на) на обработку данных для закрытой беты FitWave
+            (e-mail, профиль, отметки цикла и самочувствия) и принимаю
+            <a href="#legal-beta">условия беты</a>. Данные можно удалить в профиле.</span>
         </label>
-        <button class="button" type="submit">Создать аккаунт (демо)</button>
+        <button class="button" type="submit">Создать аккаунт</button>
         <p class="auth-hint" data-auth-message hidden></p>
       </form>
+
+      <details class="legal-box" id="legal-beta">
+        <summary>Условия беты и обработка данных (черновик)</summary>
+        <p><strong>Статус:</strong> закрытая бесплатная бета, не медицинский
+          сервис (FW-IR-001). FitWave не диагностирует, не лечит и не даёт
+          медицинских рекомендаций; при боли или недомогании остановитесь и
+          обратитесь к специалисту.</p>
+        <p><strong>Данные:</strong> e-mail, имя, профиль тренировок, отметки
+          цикла и самочувствия, история сессий. Цель — работа персонального
+          плана и прогресса. Доступ только у вас; данные не продаются и не
+          передаются рекламным сетям.</p>
+        <p><strong>Права:</strong> экспорт данных и удаление аккаунта доступны в
+          профиле; после удаления записи стираются каскадом. Это черновик
+          политики беты; до публичного запуска нужен юридический документ по
+          152-ФЗ и назначение оператора персональных данных.</p>
+        <p><strong>Контакты:</strong> поддержка через раздел «Поддержка» в
+          приложении.</p>
+      </details>
 
       <div class="auth-divider"><span>или</span></div>
       <button class="auth-google" type="button" data-auth-google>

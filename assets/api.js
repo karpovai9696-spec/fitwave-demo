@@ -240,6 +240,24 @@
         disc.className = "disclaimer";
         disc.textContent = data.disclaimer || "";
         main.appendChild(disc);
+        api("/api/plan/history").then(function (hist) {
+          if (!hist.weeks || !hist.weeks.length) { return; }
+          var hs = document.createElement("section");
+          hs.className = "card";
+          var hh = document.createElement("h2");
+          hh.textContent = "История планов";
+          hs.appendChild(hh);
+          var hl = document.createElement("ul");
+          hist.weeks.forEach(function (w) {
+            var li = document.createElement("li");
+            li.textContent = w.week_start + " · версия " + w.version +
+              " · выполнено " + w.completed + "/" + w.planned +
+              (w.deload ? " · разгрузка" : "");
+            hl.appendChild(li);
+          });
+          hs.appendChild(hl);
+          main.appendChild(hs);
+        }).catch(function () {});
       }).catch(function (e) {
         if (e.status === 401) { location.replace("login.html?mode=login"); }
       });
@@ -294,6 +312,7 @@
           (session.blocks.main || []).forEach(function (e) {
             var block = document.createElement("div");
             block.className = "set-block";
+            block.dataset.slug = e.slug;
             if (e.image) {
               var exImg = document.createElement("img");
               exImg.src = e.image; exImg.width = 150; exImg.height = 98;
@@ -377,6 +396,43 @@
             block.appendChild(save); block.appendChild(msg);
             mainHolder.appendChild(block);
           });
+          api("/api/exercises").then(function (cat) {
+            var options = cat.exercises || [];
+            mainHolder.querySelectorAll(".set-block").forEach(function (block) {
+              var slug = block.dataset.slug;
+              var current = options.filter(function (x) { return x.slug === slug; })[0];
+              var sel = document.createElement("select");
+              sel.setAttribute("aria-label", "Заменить упражнение");
+              var def = document.createElement("option");
+              def.value = ""; def.textContent = "Заменить на…";
+              sel.appendChild(def);
+              options.forEach(function (o) {
+                if (o.slug === slug) { return; }
+                if (current && o.equipment !== current.equipment &&
+                    o.equipment !== "bodyweight") { return; }
+                var opt = document.createElement("option");
+                opt.value = o.slug; opt.textContent = o.name;
+                sel.appendChild(opt);
+              });
+              var sub = document.createElement("button");
+              sub.type = "button"; sub.className = "button ghost";
+              sub.textContent = "Заменить";
+              var smsg = document.createElement("span");
+              smsg.className = "muted";
+              sub.addEventListener("click", function () {
+                if (!sel.value) { return; }
+                api("/api/plan/session/" + encodeURIComponent(session.key) +
+                    "/substitute", { method: "POST", body: {
+                      exercise_slug: slug, replacement_slug: sel.value } })
+                  .then(function () { location.reload(); })
+                  .catch(function (err) {
+                    smsg.textContent = "Нельзя заменить: " + err.message;
+                  });
+              });
+              block.appendChild(sel); block.appendChild(sub);
+              block.appendChild(smsg);
+            });
+          }).catch(function () {});
         }).catch(function () {});
 
       var why = document.createElement("p");
