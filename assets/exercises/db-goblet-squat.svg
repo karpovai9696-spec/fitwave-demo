@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 210" width="320" height="210" role="img" aria-labelledby="t d">
+<title id="t">Гоблет-присед — техника</title>
+<desc id="d">Схема: старт и финиш. гантели. Демо-бета, требует ревью тренера.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#FCD116"/></marker></defs>
+<rect width="320" height="210" rx="14" fill="#101012"/>
+<rect x="1" y="1" width="318" height="208" rx="14" fill="none" stroke="rgba(252,209,22,.28)"/>
+<text x="18" y="26" fill="#F5F1E2" font-family="Montserrat, Arial, sans-serif" font-size="15" font-weight="700">Гоблет-присед</text>
+<text x="18" y="42" fill="#B9B28F" font-family="Inter, Arial, sans-serif" font-size="10">гантели · старт → финиш</text>
+<line x1="24" y1="168" x2="296" y2="168" stroke="rgba(252,209,22,.28)" stroke-width="1"/>
+<text x="70" y="184" fill="#B9B28F" font-family="JetBrains Mono, monospace" font-size="9">СТАРТ</text>
+<text x="232" y="184" fill="#B9B28F" font-family="JetBrains Mono, monospace" font-size="9">ФИНИШ</text>
+<circle cx="80" cy="66" r="8" fill="none" stroke="#F5F1E2" stroke-width="2"/><polyline points="80,78 80,118" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="80,78 66,108" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="80,78 94,108" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="80,118 74,144 68,166" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="80,118 86,144 92,166" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="56" y1="108" x2="76" y2="108" stroke="#FCD116" stroke-width="3"/><circle cx="54" cy="108" r="3" fill="#FCD116"/><circle cx="78" cy="108" r="3" fill="#FCD116"/>
+<circle cx="240" cy="82" r="8" fill="none" stroke="#F5F1E2" stroke-width="2"/><polyline points="240,94 240,134" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="240,94 224,126" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="240,94 256,126" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="240,134 218,150 230,166" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="240,134 262,150 250,166" fill="none" stroke="#F5F1E2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><line x1="214" y1="126" x2="234" y2="126" stroke="#FCD116" stroke-width="3"/><circle cx="212" cy="126" r="3" fill="#FCD116"/><circle cx="236" cy="126" r="3" fill="#FCD116"/>
+<line x1="150" y1="100" x2="180" y2="100" stroke="#FCD116" stroke-width="2" marker-end="url(#a)"/>
+</svg>

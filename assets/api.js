@@ -208,7 +208,17 @@
           var ul = document.createElement("ul");
           s.blocks.main.forEach(function (e) {
             var li = document.createElement("li");
-            li.textContent = exerciseLine(e);
+            li.className = "exercise-line";
+            if (e.image) {
+              var img = document.createElement("img");
+              img.src = e.image; img.width = 112; img.height = 74;
+              img.loading = "lazy"; img.decoding = "async";
+              img.alt = "Схема техники: " + e.name;
+              li.appendChild(img);
+            }
+            var txt = document.createElement("span");
+            txt.textContent = exerciseLine(e);
+            li.appendChild(txt);
             ul.appendChild(li);
           });
           card.appendChild(ul);
@@ -257,10 +267,9 @@
       meta.className = "muted";
       meta.textContent = session.duration_min + " мин · " + session.day;
       card.appendChild(meta);
-      ["warmup", "main", "cooldown"].forEach(function (block) {
+      ["warmup", "cooldown"].forEach(function (block) {
         var title = document.createElement("h3");
-        title.textContent = { warmup: "Разминка", main: "Основная часть",
-          cooldown: "Заминка" }[block];
+        title.textContent = block === "warmup" ? "Разминка" : "Заминка";
         card.appendChild(title);
         var ul = document.createElement("ul");
         (session.blocks[block] || []).forEach(function (e) {
@@ -270,6 +279,106 @@
         });
         card.appendChild(ul);
       });
+      var mainTitle = document.createElement("h3");
+      mainTitle.textContent = "Основная часть — подходы";
+      card.appendChild(mainTitle);
+      var mainHolder = document.createElement("div");
+      mainHolder.className = "set-holder";
+      card.appendChild(mainHolder);
+      api("/api/plan/session/" + encodeURIComponent(session.key) + "/logs")
+        .then(function (data) {
+          var saved = {};
+          (data.logs || []).forEach(function (l) {
+            saved[l.exercise_slug + ":" + l.set_index] = l;
+          });
+          (session.blocks.main || []).forEach(function (e) {
+            var block = document.createElement("div");
+            block.className = "set-block";
+            if (e.image) {
+              var exImg = document.createElement("img");
+              exImg.src = e.image; exImg.width = 150; exImg.height = 98;
+              exImg.loading = "lazy"; exImg.decoding = "async";
+              exImg.alt = "Схема техники: " + e.name;
+              exImg.className = "exercise-img";
+              block.appendChild(exImg);
+            }
+            var h4 = document.createElement("h4");
+            h4.textContent = e.name + " · " + e.sets + "×" + e.reps +
+              " · RPE " + e.rpe_target;
+            block.appendChild(h4);
+            var note = document.createElement("p");
+            note.className = "muted";
+            note.textContent = e.note || "";
+            block.appendChild(note);
+            var lower = parseInt((e.reps || "8").split(/[–-]/)[0], 10) || 8;
+            var rows = [];
+            for (var i = 1; i <= e.sets; i += 1) {
+              var row = document.createElement("div");
+              row.className = "set-row";
+              var lbl = document.createElement("span");
+              lbl.textContent = "Подход " + i;
+              var reps = document.createElement("input");
+              reps.type = "number"; reps.min = "0"; reps.max = "200";
+              reps.value = String(lower); reps.title = "повторения";
+              var weight = document.createElement("input");
+              weight.type = "number"; weight.min = "0"; weight.max = "500";
+              weight.step = "0.5";
+              weight.value = String(e.suggested_weight_kg || saved[e.slug + ":" + i]?.weight_kg || 0);
+              weight.title = "вес, кг";
+              if (e.equipment === "bodyweight") { weight.disabled = true; }
+              var rpe = document.createElement("select");
+              [5, 6, 7, 8, 9, 10].forEach(function (v) {
+                var o = document.createElement("option"); o.textContent = "RPE " + v;
+                o.value = String(v);
+                if (v === e.rpe_target) { o.selected = true; }
+                rpe.appendChild(o);
+              });
+              var pain = document.createElement("input");
+              pain.type = "checkbox"; pain.title = "была боль";
+              var sl = saved[e.slug + ":" + i];
+              if (sl) {
+                reps.value = String(sl.reps);
+                weight.value = String(sl.weight_kg);
+                rpe.value = String(sl.rpe);
+                pain.checked = !!sl.pain;
+              }
+              row.appendChild(lbl); row.appendChild(reps);
+              row.appendChild(weight); row.appendChild(rpe); row.appendChild(pain);
+              block.appendChild(row);
+              rows.push({ set_index: i, reps: reps, weight: weight,
+                rpe: rpe, pain: pain });
+            }
+            var save = document.createElement("button");
+            save.type = "button"; save.className = "button secondary";
+            save.textContent = "Сохранить подходы";
+            var msg = document.createElement("p");
+            msg.className = "muted"; msg.hidden = true;
+            save.addEventListener("click", function () {
+              var calls = rows.map(function (r) {
+                return api("/api/plan/session/" +
+                  encodeURIComponent(session.key) + "/set", {
+                  method: "POST", body: {
+                    exercise_slug: e.slug, set_index: r.set_index,
+                    reps: parseInt(r.reps.value || "0", 10),
+                    weight_kg: parseFloat(r.weight.value || "0"),
+                    rpe: parseInt(r.rpe.value, 10),
+                    pain: r.pain.checked
+                  }
+                });
+              });
+              Promise.all(calls).then(function () {
+                msg.hidden = false;
+                msg.textContent = "Подходы сохранены.";
+              }).catch(function (err) {
+                msg.hidden = false;
+                msg.textContent = "Ошибка: " + err.message;
+              });
+            });
+            block.appendChild(save); block.appendChild(msg);
+            mainHolder.appendChild(block);
+          });
+        }).catch(function () {});
+
       var why = document.createElement("p");
       why.className = "muted";
       why.textContent = "Почему так: " + (session.why || []).join(" ");
