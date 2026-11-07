@@ -1615,3 +1615,16 @@ body:not(.landing-2025) .demo-stats strong { color: #FCD116; }
   body:not(.landing-2025) .topnav a[aria-current="page"],
   body:not(.landing-2025) .admin-nav a[aria-current="page"] { color: #FCD116; }
 }
+
+/* 051: fix the four-steps grid: body text must stay in the content column */
+body.landing-2025 .m-steps li {
+  grid-template-columns: 56px minmax(0, 1fr);
+  align-items: start;
+}
+body.landing-2025 .m-steps li > span { grid-row: 1 / span 2; }
+body.landing-2025 .m-steps li > h3,
+body.landing-2025 .m-steps li > p { grid-column: 2; }
+body.landing-2025 .m-steps li > p { max-width: 42ch; }
+@media (min-width: 760px) {
+  body.landing-2025 .m-steps li { padding-right: 24px; }
+}

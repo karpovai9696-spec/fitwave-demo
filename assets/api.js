@@ -157,14 +157,25 @@
     });
   }
 
+  function dayLabel(iso) {
+    var labels = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+    return labels[new Date(iso + "T00:00:00").getDay()];
+  }
+
+  function exerciseLine(e) {
+    return e.name + " · " + e.sets + "×" + e.reps +
+      " · отдых " + e.rest_sec + "с · RPE " + e.rpe_target;
+  }
+
   if (here === "plan-week.html" && token()) {
     var main = document.querySelector("main");
     function renderWeek() {
       api("/api/plan/week").then(function (data) {
-        var rows = document.querySelectorAll(".plan-day");
-        rows.forEach(function (r) { r.remove(); });
-        var labels = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
-        var done = data.days.filter(function (x) { return x.completed; }).length;
+        document.querySelectorAll(".plan-day, .plan-session-card")
+          .forEach(function (r) { r.remove(); });
+        var done = (data.sessions || []).filter(function (x) {
+          return x.status === "completed";
+        }).length;
         var st = document.querySelector("[data-demo-status]");
         if (!st) {
           st = document.createElement("p");
@@ -172,39 +183,136 @@
           st.setAttribute("data-demo-status", "");
           main.insertBefore(st, main.firstChild);
         }
-        st.textContent = "Отмечено " + done + " из " + data.days.length +
-          " дней (сервер).";
-        data.days.forEach(function (d) {
-          var row = document.createElement("div");
-          row.className = "plan-day";
-          var date = new Date(d.day + "T00:00:00");
-          var day = document.createElement("span");
-          day.className = "day";
-          day.textContent = labels[date.getDay()];
-          var title = document.createElement("span");
-          title.textContent = d.title;
-          var btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "demo-done";
-          btn.textContent = d.completed ? "Готово" : "Отметить";
-          btn.setAttribute("aria-pressed", d.completed ? "true" : "false");
-          if (d.completed) { row.classList.add("is-done"); }
-          btn.addEventListener("click", function () {
-            api("/api/plan/day/" + d.day + "/complete",
-              { method: "POST", body: { completed: !d.completed } })
-              .then(renderWeek)
-              .catch(function (e) { alert("Не удалось сохранить: " + e.message); });
+        st.textContent = "Выполнено " + done + " из " +
+          (data.sessions || []).length + " сессий · неделя " +
+          data.week_start + " · версия " + data.plan_version;
+        if (data.cycle && data.cycle.phase && data.cycle.phase !== "unknown") {
+          var pnote = document.createElement("p");
+          pnote.className = "muted";
+          pnote.textContent = "Оценка цикла: " + data.cycle.phase +
+            " (день " + data.cycle.cycle_day + ", уверенность " +
+            data.cycle.confidence + "). " + data.cycle.note;
+          main.insertBefore(pnote, st.nextSibling);
+        }
+        (data.sessions || []).forEach(function (s) {
+          var card = document.createElement("section");
+          card.className = "card plan-session-card";
+          var h = document.createElement("h2");
+          h.textContent = dayLabel(s.day) + " · " + s.title;
+          card.appendChild(h);
+          var meta = document.createElement("p");
+          meta.className = "muted";
+          meta.textContent = s.duration_min + " мин · фокус: " + s.focus +
+            " · статус: " + (s.status === "completed" ? "выполнено" : "план");
+          card.appendChild(meta);
+          var ul = document.createElement("ul");
+          s.blocks.main.forEach(function (e) {
+            var li = document.createElement("li");
+            li.textContent = exerciseLine(e);
+            ul.appendChild(li);
           });
-          row.appendChild(day);
-          row.appendChild(title);
-          row.appendChild(btn);
-          main.appendChild(row);
+          card.appendChild(ul);
+          if (s.why && s.why.length) {
+            var why = document.createElement("p");
+            why.className = "muted";
+            why.textContent = "Почему так: " + s.why.join(" ");
+            card.appendChild(why);
+          }
+          var open = document.createElement("a");
+          open.className = "button secondary";
+          open.href = "plan-session.html?key=" + encodeURIComponent(s.key);
+          open.textContent = s.status === "completed"
+            ? "Посмотреть сессию" : "Открыть сессию";
+          card.appendChild(open);
+          main.appendChild(card);
         });
+        var disc = document.createElement("p");
+        disc.className = "disclaimer";
+        disc.textContent = data.disclaimer || "";
+        main.appendChild(disc);
       }).catch(function (e) {
         if (e.status === 401) { location.replace("login.html?mode=login"); }
       });
     }
     renderWeek();
+  }
+
+  if (here === "plan-session.html" && token()) {
+    var smain = document.querySelector("main");
+    var demoForm = document.querySelector('form[data-demo="session"]');
+    if (demoForm) { demoForm.hidden = true; }
+    var key = new URLSearchParams(location.search).get("key");
+    api("/api/plan/week").then(function (data) {
+      var session = (data.sessions || []).filter(function (s) {
+        return !key || s.key === key;
+      })[0] || (data.sessions || [])[0];
+      if (!session) { return; }
+      document.querySelectorAll(".plan-day").forEach(function (r) { r.remove(); });
+      var card = document.createElement("section");
+      card.className = "card";
+      var h = document.createElement("h2");
+      h.textContent = dayLabel(session.day) + " · " + session.title;
+      card.appendChild(h);
+      var meta = document.createElement("p");
+      meta.className = "muted";
+      meta.textContent = session.duration_min + " мин · " + session.day;
+      card.appendChild(meta);
+      ["warmup", "main", "cooldown"].forEach(function (block) {
+        var title = document.createElement("h3");
+        title.textContent = { warmup: "Разминка", main: "Основная часть",
+          cooldown: "Заминка" }[block];
+        card.appendChild(title);
+        var ul = document.createElement("ul");
+        (session.blocks[block] || []).forEach(function (e) {
+          var li = document.createElement("li");
+          li.textContent = exerciseLine(e) + (e.note ? " — " + e.note : "");
+          ul.appendChild(li);
+        });
+        card.appendChild(ul);
+      });
+      var why = document.createElement("p");
+      why.className = "muted";
+      why.textContent = "Почему так: " + (session.why || []).join(" ");
+      card.appendChild(why);
+      var f = document.createElement("form");
+      f.className = "demo-form";
+      f.innerHTML = "<h3>Как прошло?</h3>" +
+        "<label for='ses-rpe'>Усилие (RPE 1–10)</label>" +
+        "<select id='ses-rpe'><option>6</option><option selected>7</option>" +
+        "<option>8</option><option>9</option><option>10</option></select>" +
+        "<label for='ses-feedback'>Ощущение</label>" +
+        "<select id='ses-feedback'><option value='as_planned'>как планировалось</option>" +
+        "<option value='too_easy'>было легко</option>" +
+        "<option value='too_hard'>было тяжело</option></select>" +
+        "<label><input type='checkbox' id='ses-pain'> была боль</label>" +
+        "<label for='ses-notes'>Заметка</label>" +
+        "<textarea id='ses-notes' rows='2'></textarea>" +
+        "<p><button type='submit'>Завершить сессию</button></p>" +
+        "<p class='placeholder-box' data-session-note hidden></p>";
+      f.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        var note = f.querySelector("[data-session-note]");
+        api("/api/plan/session/" + encodeURIComponent(session.key) + "/complete", {
+          method: "POST", body: {
+            rpe: parseInt(f.querySelector("#ses-rpe").value, 10),
+            feedback: f.querySelector("#ses-feedback").value,
+            pain: f.querySelector("#ses-pain").checked,
+            notes: f.querySelector("#ses-notes").value
+          }
+        }).then(function (res) {
+          note.hidden = false;
+          note.textContent = (res.advice || []).join(" ") ||
+            "Сессия сохранена на сервере.";
+        }).catch(function (e) {
+          note.hidden = false;
+          note.textContent = "Ошибка сохранения: " + e.message;
+        });
+      });
+      card.appendChild(f);
+      smain.insertBefore(card, smain.firstChild.nextSibling);
+    }).catch(function (e) {
+      if (e.status === 401) { location.replace("login.html?mode=login"); }
+    });
   }
 
   function bindListForm(kind, path, collect, render) {
@@ -321,6 +429,19 @@
           var code = dayMap[label];
           if (code) { cb.checked = (me.profile.days || []).indexOf(code) >= 0; }
         });
+        var goalSel = pform.querySelector("#goal");
+        if (goalSel) { goalSel.value = me.profile.goal || "tonus"; }
+        var minsSel = pform.querySelector("#session-minutes");
+        if (minsSel) { minsSel.value = String(me.profile.session_minutes || 30); }
+        var cycSel = pform.querySelector("#cycle-override");
+        if (cycSel) { cycSel.value = me.profile.cycle_override || "auto"; }
+        pform.querySelectorAll('input[name="equipment"]').forEach(function (cb) {
+          cb.checked = (me.profile.equipment || ["bodyweight"])
+            .indexOf(cb.value) >= 0;
+        });
+        pform.querySelectorAll('input[name="restriction"]').forEach(function (cb) {
+          cb.checked = (me.profile.restrictions || []).indexOf(cb.value) >= 0;
+        });
       }).catch(function () {});
       pform.addEventListener("submit", function (ev) {
         ev.preventDefault();
@@ -334,10 +455,24 @@
           function (c) {
             return dayCodes[(c.parentNode.textContent || "").trim()] || "";
           }).filter(Boolean);
+        var goalSel = pform.querySelector("#goal");
+        var minsSel = pform.querySelector("#session-minutes");
+        var cycSel = pform.querySelector("#cycle-override");
+        var equipment = Array.prototype.map.call(
+          pform.querySelectorAll('input[name="equipment"]:checked'),
+          function (c) { return c.value; });
+        var restrictions = Array.prototype.map.call(
+          pform.querySelectorAll('input[name="restriction"]:checked'),
+          function (c) { return c.value; });
         api("/api/me/profile", { method: "PUT", body: {
           name: name ? name.value.trim() : "",
           experience: exp ? exp.value : "beginner",
-          days: days, goal: "" } }).then(function () {
+          days: days,
+          goal: goalSel ? goalSel.value : "tonus",
+          equipment: equipment.length ? equipment : ["bodyweight"],
+          session_minutes: minsSel ? parseInt(minsSel.value, 10) : 30,
+          restrictions: restrictions,
+          cycle_override: cycSel ? cycSel.value : "auto" } }).then(function () {
             var note = pform.querySelector("[data-demo-note]");
             if (note) { note.textContent = "Профиль сохранён на сервере."; note.hidden = false; }
           }).catch(function (e) {

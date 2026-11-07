@@ -25,21 +25,56 @@
     <h1>Настройка профиля</h1>
     <p><span class="mock-tag">МАКЕТ ИНТЕРФЕЙСА — статическое демо, без реальных персональных данных</span></p>
     <form data-demo="profile">
-      <label for="display-name">Отображаемое имя (только демо)</label>
+      <label for="display-name">Отображаемое имя</label>
       <input id="display-name" type="text" autocomplete="off"
-             placeholder="напр., Демо-пользователь — не реальное имя">
-      <label>Тренировочный опыт (демо)</label>
+             placeholder="как к вам обращаться">
+      <label>Тренировочный опыт</label>
       <p>
-        <label><input type="radio" name="exp"> начинающий</label>
-        <label><input type="radio" name="exp"> средний</label>
-        <label><input type="radio" name="exp"> продвинутый</label>
+        <label><input type="radio" name="exp" value="beginner"> начинающий</label>
+        <label><input type="radio" name="exp" value="middle"> средний</label>
+        <label><input type="radio" name="exp" value="advanced"> продвинутый</label>
       </p>
-      <label>Предпочтительные дни тренировок (демо)</label>
+      <label for="goal">Цель</label>
+      <select id="goal">
+        <option value="tonus">тонус и форма</option>
+        <option value="strength">сила</option>
+        <option value="regularity">регулярность и привычка</option>
+      </select>
+      <label>Дни тренировок</label>
       <p>
         <label><input type="checkbox"> Пн</label>
+        <label><input type="checkbox"> Вт</label>
         <label><input type="checkbox"> Ср</label>
+        <label><input type="checkbox"> Чт</label>
         <label><input type="checkbox"> Пт</label>
+        <label><input type="checkbox"> Сб</label>
+        <label><input type="checkbox"> Вс</label>
       </p>
+      <label>Оборудование</label>
+      <p>
+        <label><input type="checkbox" name="equipment" value="bodyweight" checked> без инвентаря</label>
+        <label><input type="checkbox" name="equipment" value="band"> резинки</label>
+        <label><input type="checkbox" name="equipment" value="dumbbell"> гантели</label>
+      </p>
+      <label for="session-minutes">Длительность сессии</label>
+      <select id="session-minutes">
+        <option value="20">20 минут</option>
+        <option value="30" selected>30 минут</option>
+        <option value="40">40 минут</option>
+      </select>
+      <label>Ограничения (фильтр упражнений)</label>
+      <p>
+        <label><input type="checkbox" name="restriction" value="knee"> колени</label>
+        <label><input type="checkbox" name="restriction" value="back"> спина</label>
+        <label><input type="checkbox" name="restriction" value="shoulder"> плечи</label>
+        <label><input type="checkbox" name="restriction" value="wrist"> запястья</label>
+      </p>
+      <label for="cycle-override">Режим нагрузки по циклу</label>
+      <select id="cycle-override">
+        <option value="auto">авто (вероятностная фаза)</option>
+        <option value="normal">как обычно</option>
+        <option value="light">легче</option>
+      </select>
       <p><button type="submit">Сохранить демо-профиль</button></p>
       <p class="placeholder-box" data-demo-note hidden>
         Только демо: данные не отправлялись и не сохранялись; профили ещё не существуют (модуль fw-identity — пустой макет; контракты в статусе ЧЕРНОВИК).
