@@ -20,15 +20,20 @@
 
   function readManifest(data) {
     if (!data) { return null; }
-    if (data.base) { return data.base; }
+    var parsed = data;
     if (data.content) {
       // GitHub contents API: base64 payload
       try {
-        var parsed = JSON.parse(atob(String(data.content).replace(/\s/g, "")));
-        return parsed && parsed.base ? parsed.base : null;
+        parsed = JSON.parse(atob(String(data.content).replace(/\s/g, "")));
       } catch (e) { return null; }
     }
-    return null;
+    if (!parsed) { return null; }
+    var list = [];
+    if (parsed.base) { list.push(parsed.base); }
+    (parsed.bases || []).forEach(function (u) {
+      if (list.indexOf(u) < 0) { list.push(u); }
+    });
+    return list.length ? list : null;
   }
 
   function withTimeout(promise, ms, fallback) {
@@ -95,6 +100,17 @@
     });
   }
 
+  function mergeCandidates(list) {
+    var all = [];
+    (list || []).forEach(function (u) {
+      if (u && all.indexOf(u) < 0) { all.push(u); }
+    });
+    var cached = cachedBase();
+    if (cached && all.indexOf(cached) < 0) { all.push(cached); }
+    if (base && all.indexOf(base) < 0) { all.push(base); }
+    return all;
+  }
+
   function resolveBase() {
     if (resolving) { return resolving; }
     var cached = cachedBase();
@@ -103,7 +119,7 @@
       if (u && list.indexOf(u) < 0) { list.push(u); }
     });
     resolving = fetchManifest().then(function (found) {
-      if (found && list.indexOf(found) < 0) { list.unshift(found); }
+      list = mergeCandidates(found);
       return list.reduce(function (chain, candidate) {
         return chain.then(function (alive) {
           if (alive) { return alive; }
