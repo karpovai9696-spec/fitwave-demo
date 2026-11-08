@@ -47,6 +47,19 @@
     });
   }
 
+  // Warm the browser CORS preflight cache for the resolved endpoint: the
+  // health probe below sends an Authorization header, so the browser performs
+  // the preflight once and reuses it (max-age 600) for the real requests.
+  function warmPreflight(target) {
+    if (!target) { return; }
+    try {
+      fetch(target + "/api/health", {
+        cache: "no-store",
+        headers: { Authorization: "Bearer preflight-warm" }
+      }).catch(function () { /* ignore */ });
+    } catch (e) { /* ignore */ }
+  }
+
   function probe(candidate, ms) {
     if (!candidate) { return Promise.resolve(null); }
     var ctrl = ("AbortController" in window) ? new AbortController() : null;
@@ -127,7 +140,7 @@
         });
       }, Promise.resolve(null));
     }).then(function (found) {
-      if (found) { base = found; cacheBase(found); }
+      if (found) { base = found; cacheBase(found); warmPreflight(found); }
       candidates = list;
       try {
         window.FITWAVE_API_RESOLVED = base;
@@ -193,14 +206,16 @@
     return resolveBase().then(function (ready) {
       return request(path, options, ready).catch(function (err) {
         if (!err || err.status !== 0) { throw err; }
-        // network failure: the endpoint probably died -> re-resolve and retry
+        // network/CORS failure: the endpoint probably hiccuped or died
         banner("Сервис переподключается…");
-        candidates = candidates.filter(function (c) { return c !== base; });
-        return resolveBase().then(function (next) {
-          return request(path, options, next);
-        }).catch(function (err2) {
-          scheduleRetry();
-          throw err2;
+        return request(path, options, ready).catch(function (errRetry) {
+          candidates = candidates.filter(function (c) { return c !== base; });
+          return resolveBase().then(function (next) {
+            return request(path, options, next);
+          }).catch(function (err2) {
+            scheduleRetry();
+            throw err2;
+          });
         });
       });
     });
