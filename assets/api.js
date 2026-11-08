@@ -109,7 +109,7 @@
       });
       setTimeout(function () {
         if (!settled) { settled = true; resolve(null); }
-      }, 4000);
+      }, 2500);
     });
   }
 
@@ -124,35 +124,79 @@
     return all;
   }
 
+  // Probe every candidate in parallel and take the first healthy one.
+  function firstHealthy(list) {
+    if (!list.length) { return Promise.resolve(null); }
+    var probes = list.map(function (candidate) {
+      return probe(candidate, 4000).then(function (alive) {
+        return alive ? { url: alive, at: Date.now() } : null;
+      });
+    });
+    return new Promise(function (resolve) {
+      var settled = false;
+      probes.forEach(function (p) {
+        p.then(function (result) {
+          if (result && !settled) { settled = true; resolve(result.url); }
+        });
+      });
+      setTimeout(function () {
+        if (!settled) { settled = true; resolve(null); }
+      }, 4500);
+    });
+  }
+
+  function applyBase(found) {
+    if (found) {
+      base = found;
+      cacheBase(found);
+      warmPreflight(found);
+    }
+    try {
+      window.FITWAVE_API_RESOLVED = base;
+      window.FITWAVE_API_CANDIDATES = candidates.slice();
+    } catch (e) { /* ignore */ }
+    return base;
+  }
+
   function resolveBase() {
     if (resolving) { return resolving; }
-    var cached = cachedBase();
-    var list = [];
-    [cached, base].forEach(function (u) {
-      if (u && list.indexOf(u) < 0) { list.push(u); }
-    });
-    resolving = fetchManifest().then(function (found) {
-      list = mergeCandidates(found);
-      return list.reduce(function (chain, candidate) {
-        return chain.then(function (alive) {
-          if (alive) { return alive; }
-          return probe(candidate, 4000);
-        });
-      }, Promise.resolve(null));
-    }).then(function (found) {
-      if (found) { base = found; cacheBase(found); warmPreflight(found); }
-      candidates = list;
-      try {
-        window.FITWAVE_API_RESOLVED = base;
-        window.FITWAVE_API_CANDIDATES = candidates.slice();
-      } catch (e) { /* ignore */ }
-      resolving = null;
-      return base;
+    var known = mergeCandidates([]);
+    resolving = firstHealthy(known).then(function (found) {
+      if (found) {
+        applyBase(found);
+        refreshFromManifest();
+        return base;
+      }
+      return fetchManifest().then(function (list) {
+        candidates = mergeCandidates(list);
+        return firstHealthy(candidates);
+      }).then(function (found) {
+        applyBase(found);
+        return base;
+      });
     }).catch(function () {
       resolving = null;
       return base;
+    }).then(function (value) {
+      resolving = null;
+      return value;
     });
     return resolving;
+  }
+
+  // Background refresh: if the manifest knows a fresher endpoint, switch to it.
+  function refreshFromManifest() {
+    fetchManifest().then(function (list) {
+      if (!list || !list.length) { return; }
+      var extra = list.filter(function (u) { return candidates.indexOf(u) < 0; });
+      if (!extra.length) { return; }
+      firstHealthy(extra).then(function (found) {
+        if (found && found !== base) {
+          candidates = candidates.concat(extra);
+          applyBase(found);
+        }
+      });
+    });
   }
 
   var retryTimer = null;
