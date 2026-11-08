@@ -63,6 +63,10 @@
       }, Promise.resolve(null));
     }).then(function (found) {
       if (found) { base = found; }
+      try {
+        window.FITWAVE_API_RESOLVED = base;
+        window.FITWAVE_API_CANDIDATES = candidates.slice();
+      } catch (e) { /* ignore */ }
       resolving = null;
       return base;
     }).catch(function () {
