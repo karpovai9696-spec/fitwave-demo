@@ -4,13 +4,32 @@
    sessionStorage of the current tab. */
 (function () {
   "use strict";
+  // Sources for the live API endpoint, freshest first:
+  //  - GitHub API contents endpoint: no CDN cache, reflects the commit in
+  //    seconds (CORS: *), which keeps the beta alive right after a tunnel
+  //    restart;
+  //  - raw.githubusercontent / jsDelivr: CDN-cached (~5 min) fallbacks.
   var MANIFEST_URLS = [
+    "https://api.github.com/repos/karpovai9696-spec/fitwave-demo/contents/api-endpoint.json",
     "https://raw.githubusercontent.com/karpovai9696-spec/fitwave-demo/main/api-endpoint.json",
     "https://cdn.jsdelivr.net/gh/karpovai9696-spec/fitwave-demo@main/api-endpoint.json"
   ];
   var base = (window.FITWAVE_API_BASE || "").replace(/\/$/, "");
   var candidates = base ? [base] : [];
   var resolving = null;
+
+  function readManifest(data) {
+    if (!data) { return null; }
+    if (data.base) { return data.base; }
+    if (data.content) {
+      // GitHub contents API: base64 payload
+      try {
+        var parsed = JSON.parse(atob(String(data.content).replace(/\s/g, "")));
+        return parsed && parsed.base ? parsed.base : null;
+      } catch (e) { return null; }
+    }
+    return null;
+  }
 
   function probe(candidate) {
     return fetch(candidate + "/api/health", { cache: "no-store" })
@@ -24,9 +43,11 @@
   function resolveBase() {
     if (resolving) { return resolving; }
     var manifest = MANIFEST_URLS.map(function (u) {
-      return fetch(u + "?cb=" + Date.now(), { cache: "no-store" })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (data) { return data && data.base ? data.base : null; })
+      return fetch(u + "?cb=" + Date.now(), {
+        cache: "no-store",
+        headers: { Accept: "application/vnd.github+json" }
+      }).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) { return readManifest(data); })
         .catch(function () { return null; });
     });
     resolving = Promise.all(manifest).then(function (found) {
@@ -49,6 +70,23 @@
       return base;
     });
     return resolving;
+  }
+
+  var retryTimer = null;
+  function scheduleRetry() {
+    if (retryTimer) { return; }
+    retryTimer = setTimeout(function () {
+      retryTimer = null;
+      candidates = [];
+      resolveBase().then(function (found) {
+        if (found) {
+          var el = document.querySelector("[data-api-banner]");
+          if (el) { el.hidden = true; }
+        } else {
+          scheduleRetry();
+        }
+      });
+    }, 15000);
   }
 
   function banner(message) {
@@ -90,6 +128,9 @@
         candidates = candidates.filter(function (c) { return c !== base; });
         return resolveBase().then(function (next) {
           return request(path, options, next);
+        }).catch(function (err2) {
+          scheduleRetry();
+          throw err2;
         });
       });
     });
