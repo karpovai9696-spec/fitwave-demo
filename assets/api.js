@@ -205,7 +205,7 @@
     options = options || {};
     return resolveBase().then(function (ready) {
       return request(path, options, ready).catch(function (err) {
-        if (!err || err.status !== 0) { throw err; }
+        if (!err || (err.status !== 0 && !err.endpointDown)) { throw err; }
         // network/CORS failure: the endpoint probably hiccuped or died
         banner("Сервис переподключается…");
         return request(path, options, ready).catch(function (errRetry) {
@@ -252,6 +252,10 @@
           var code = data && data.detail && (data.detail.code || data.detail);
           var err = new Error(typeof code === "string" ? code : "API_ERROR");
           err.status = r.status;
+          // gateway errors mean the tunnel in front of the API is down
+          if (r.status === 502 || r.status === 503 || r.status === 504) {
+            err.endpointDown = true;
+          }
           throw err;
         }
         return data;
