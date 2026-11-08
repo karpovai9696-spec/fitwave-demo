@@ -379,7 +379,17 @@
           main.appendChild(hs);
         }).catch(function () {});
       }).catch(function (e) {
-        if (e.status === 401) { location.replace("login.html?mode=login"); }
+        if (e.status === 401) { location.replace("login.html?mode=login"); return; }
+        var st = document.querySelector("[data-demo-status]");
+        if (!st) {
+          st = document.createElement("p");
+          st.className = "demo-status";
+          st.setAttribute("data-demo-status", "");
+          main.insertBefore(st, main.firstChild);
+        }
+        st.textContent = "Нет связи с сервером FitWave — показаны демо-данные. " +
+          "Переподключение выполняется автоматически.";
+        banner("Сервис переподключается…");
       });
     }
     renderWeek();
