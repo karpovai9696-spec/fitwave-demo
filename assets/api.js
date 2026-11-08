@@ -11,6 +11,7 @@
   //  - raw.githubusercontent / jsDelivr: CDN-cached (~5 min) fallbacks.
   var MANIFEST_URLS = [
     "https://api.github.com/repos/karpovai9696-spec/fitwave-demo/contents/api-endpoint.json",
+    "api-endpoint.json",
     "https://raw.githubusercontent.com/karpovai9696-spec/fitwave-demo/main/api-endpoint.json",
     "https://cdn.jsdelivr.net/gh/karpovai9696-spec/fitwave-demo@main/api-endpoint.json"
   ];
