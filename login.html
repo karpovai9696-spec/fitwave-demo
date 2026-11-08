@@ -71,6 +71,18 @@
         <p class="auth-hint" data-auth-message hidden></p>
       </form>
 
+      <details class="legal-box" id="reset-box">
+        <summary>Забыли пароль?</summary>
+        <p class="muted">Укажите e-mail аккаунта — пришлём ссылку для смены
+          пароля (в бете письма уходят на настроенный SMTP-канал).</p>
+        <form id="reset-request" class="auth-form">
+          <label for="reset-email">E-mail</label>
+          <input id="reset-email" type="email" autocomplete="email">
+          <p><button class="button secondary" type="submit">Прислать ссылку</button></p>
+          <p class="auth-hint" id="reset-msg" hidden></p>
+        </form>
+      </details>
+
       <details class="legal-box" id="legal-beta">
         <summary>Условия беты и обработка данных (черновик)</summary>
         <p><strong>Статус:</strong> закрытая бесплатная бета, не медицинский
@@ -169,6 +181,34 @@
   if (google && note) {
     google.addEventListener("click", function () { note.hidden = false; });
   }
+})();
+</script>
+<script>
+(function () {
+  var form = document.getElementById("reset-request");
+  if (!form) { return; }
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var email = document.getElementById("reset-email").value.trim();
+    var msg = document.getElementById("reset-msg");
+    msg.hidden = false;
+    if (email.indexOf("@") < 1) {
+      msg.textContent = "Введите корректный e-mail.";
+      return;
+    }
+    msg.textContent = "Отправляем…";
+    fetch((window.FITWAVE_API_BASE || "") + "/api/auth/password-reset/request", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email })
+    }).then(function (r) { return r.json(); })
+      .then(function () {
+        msg.textContent = "Если такой аккаунт есть, ссылка для смены пароля " +
+          "отправлена на e-mail.";
+      }).catch(function () {
+        msg.textContent = "Нет связи с сервером. Попробуйте позже.";
+      });
+  });
 })();
 </script>
 </body>

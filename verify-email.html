@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FitWave — подтверждение e-mail</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="landing-2025">
+<a class="skip-link" href="#main-content">К содержимому</a>
+<header class="topnav">
+  <a class="brand" href="index.html">FitWave<span>.</span></a>
+  <nav>
+    <a href="index.html">На главную</a>
+    <a href="login.html?mode=login">Войти</a>
+  </nav>
+</header>
+<main id="main-content">
+  <section class="card">
+    <h1>Подтверждение e-mail</h1>
+    <p class="muted">Нажмите «Подтвердить» — аккаунт привяжется к e-mail.</p>
+    <p><button class="button" type="button" id="verify">Подтвердить</button></p>
+    <p class="auth-hint" id="msg" hidden></p>
+  </section>
+  <p class="disclaimer">
+    FitWave не оказывает медицинских услуг (медицинское ограничение FW-IR-001).
+  </p>
+</main>
+<script src="assets/config.js"></script>
+<script src="assets/api.js"></script>
+<script>
+(function () {
+  var token = new URLSearchParams(location.search).get("token") || "";
+  var msg = document.getElementById("msg");
+  var btn = document.getElementById("verify");
+  if (!token) {
+    msg.hidden = false;
+    msg.textContent = "Ссылка без токена. Запросите новое письмо на странице входа.";
+    btn.disabled = true;
+    return;
+  }
+  btn.addEventListener("click", function () {
+    btn.disabled = true;
+    msg.hidden = false;
+    msg.textContent = "Подтверждаем…";
+    fetch((window.FITWAVE_API_BASE || "") + "/api/auth/verify-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: token })
+    }).then(function (r) { return r.json().then(function (d) {
+      return { ok: r.ok, data: d }; }); })
+      .then(function (res) {
+        if (res.ok && res.data && res.data.verified) {
+          msg.textContent = "E-mail подтверждён. Можно войти.";
+        } else {
+          msg.textContent = "Не удалось подтвердить: ссылка недействительна или истекла.";
+          btn.disabled = false;
+        }
+      }).catch(function () {
+        msg.textContent = "Нет связи с сервером. Попробуйте позже.";
+        btn.disabled = false;
+      });
+  });
+})();
+</script>
+</body>
+</html>
