@@ -1658,3 +1658,8 @@ body.landing-2025 .m-steps li > p { max-width: 42ch; }
   font-weight: 600; margin-bottom: 6px; }
 .legal-box p { margin: 6px 0; }
 .legal-box a { color: var(--accent, #FCD116); }
+
+/* 052: API status banner */
+.api-banner { position: sticky; top: 0; z-index: 50; padding: 10px 16px;
+  background: #FCD116; color: #09090A; font-weight: 700; font-size: .85rem;
+  text-align: center; }

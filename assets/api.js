@@ -4,8 +4,64 @@
    sessionStorage of the current tab. */
 (function () {
   "use strict";
+  var MANIFEST_URLS = [
+    "https://raw.githubusercontent.com/karpovai9696-spec/fitwave-demo/main/api-endpoint.json",
+    "https://cdn.jsdelivr.net/gh/karpovai9696-spec/fitwave-demo@main/api-endpoint.json"
+  ];
   var base = (window.FITWAVE_API_BASE || "").replace(/\/$/, "");
-  if (!base) { return; }
+  var candidates = base ? [base] : [];
+  var resolving = null;
+
+  function probe(candidate) {
+    return fetch(candidate + "/api/health", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        return data && data.status === "ok" ? candidate : null;
+      })
+      .catch(function () { return null; });
+  }
+
+  function resolveBase() {
+    if (resolving) { return resolving; }
+    var manifest = MANIFEST_URLS.map(function (u) {
+      return fetch(u + "?cb=" + Date.now(), { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (data) { return data && data.base ? data.base : null; })
+        .catch(function () { return null; });
+    });
+    resolving = Promise.all(manifest).then(function (found) {
+      found.filter(Boolean).forEach(function (u) {
+        if (candidates.indexOf(u) < 0) { candidates.push(u); }
+      });
+      var list = candidates.slice();
+      return list.reduce(function (chain, candidate) {
+        return chain.then(function (found) {
+          if (found) { return found; }
+          return probe(candidate);
+        });
+      }, Promise.resolve(null));
+    }).then(function (found) {
+      if (found) { base = found; }
+      resolving = null;
+      return base;
+    }).catch(function () {
+      resolving = null;
+      return base;
+    });
+    return resolving;
+  }
+
+  function banner(message) {
+    var el = document.querySelector("[data-api-banner]");
+    if (!el) {
+      el = document.createElement("div");
+      el.setAttribute("data-api-banner", "");
+      el.className = "api-banner";
+      document.body.insertBefore(el, document.body.firstChild);
+    }
+    el.textContent = message;
+    el.hidden = false;
+  }
 
   var KEY = "fitwave.auth.v1";
   var here = location.pathname.split("/").pop() || "index.html";
@@ -26,17 +82,36 @@
 
   function api(path, options) {
     options = options || {};
+    return resolveBase().then(function (ready) {
+      return request(path, options, ready).catch(function (err) {
+        if (!err || err.status !== 0) { throw err; }
+        // network failure: the endpoint probably died -> re-resolve and retry
+        banner("Сервис переподключается…");
+        candidates = candidates.filter(function (c) { return c !== base; });
+        return resolveBase().then(function (next) {
+          return request(path, options, next);
+        });
+      });
+    });
+  }
+
+  function request(path, options, baseUrl) {
+    options = options || {};
     var headers = options.headers || {};
     headers["Accept"] = "application/json";
     if (options.body) { headers["Content-Type"] = "application/json"; }
     var t = token();
     if (t) { headers["Authorization"] = "Bearer " + t; }
-    return fetch(base + path, {
+    return fetch(baseUrl + path, {
       method: options.method || "GET",
       headers: headers,
       body: options.body ? JSON.stringify(options.body) : undefined,
       credentials: "omit",
       cache: "no-store"
+    }).catch(function () {
+      var netErr = new Error("NETWORK");
+      netErr.status = 0;
+      throw netErr;
     }).then(function (r) {
       return r.text().then(function (text) {
         var data = null;
