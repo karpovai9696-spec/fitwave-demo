@@ -1,5 +1,9 @@
 {
-  "base": "https://cf0b9bea0073e1.lhr.life",
-  "updated": "2026-11-08T10:36:21Z",
-  "source": "keepalive-tunnel"
+  "base": "https://frvvl-78-138-138-218.free.pinggy.net",
+  "bases": [
+    "https://frvvl-78-138-138-218.free.pinggy.net",
+    "https://741ee7c6c599470c-78-138-138-218.serveousercontent.com"
+  ],
+  "updated": "2026-11-08T10:36:27Z",
+  "source": "tunnels-watchdog"
 }
