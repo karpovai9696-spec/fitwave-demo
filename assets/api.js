@@ -920,6 +920,35 @@
     }
   }
 
+  // password reset request on the login screen (no inline script: the
+  // verifier forbids network calls inside inline page logic)
+  if (here === "login.html") {
+    var rform = document.getElementById("reset-request");
+    if (rform) {
+      rform.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        var input = document.getElementById("reset-email");
+        var out = document.getElementById("reset-msg");
+        var email = input ? input.value.trim() : "";
+        if (email.indexOf("@") < 1) {
+          out.hidden = false;
+          out.textContent = "Введите корректный e-mail.";
+          return;
+        }
+        out.hidden = false;
+        out.textContent = "Отправляем…";
+        api("/api/auth/password-reset/request", {
+          method: "POST", body: { email: email }
+        }).then(function () {
+          out.textContent = "Если такой аккаунт есть, ссылка для смены " +
+            "пароля отправлена на e-mail.";
+        }).catch(function () {
+          out.textContent = "Нет связи с сервером. Попробуйте позже.";
+        });
+      });
+    }
+  }
+
   // profile: data export / account deletion (privacy)
   if (here === "profile-setup.html" && token()) {
     var mainP = document.querySelector("main");

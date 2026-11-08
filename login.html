@@ -183,33 +183,5 @@
   }
 })();
 </script>
-<script>
-(function () {
-  var form = document.getElementById("reset-request");
-  if (!form) { return; }
-  form.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    var email = document.getElementById("reset-email").value.trim();
-    var msg = document.getElementById("reset-msg");
-    msg.hidden = false;
-    if (email.indexOf("@") < 1) {
-      msg.textContent = "Введите корректный e-mail.";
-      return;
-    }
-    msg.textContent = "Отправляем…";
-    fetch((window.FITWAVE_API_BASE || "") + "/api/auth/password-reset/request", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email })
-    }).then(function (r) { return r.json(); })
-      .then(function () {
-        msg.textContent = "Если такой аккаунт есть, ссылка для смены пароля " +
-          "отправлена на e-mail.";
-      }).catch(function () {
-        msg.textContent = "Нет связи с сервером. Попробуйте позже.";
-      });
-  });
-})();
-</script>
 </body>
 </html>
