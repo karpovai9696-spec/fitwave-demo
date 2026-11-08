@@ -31,38 +31,88 @@
     return null;
   }
 
-  function probe(candidate) {
-    return fetch(candidate + "/api/health", { cache: "no-store" })
-      .then(function (r) { return r.ok ? r.json() : null; })
+  function withTimeout(promise, ms, fallback) {
+    var timer = null;
+    var guard = new Promise(function (resolve) {
+      timer = setTimeout(function () { resolve(fallback); }, ms);
+    });
+    return Promise.race([promise, guard]).then(function (value) {
+      if (timer) { clearTimeout(timer); }
+      return value;
+    });
+  }
+
+  function probe(candidate, ms) {
+    if (!candidate) { return Promise.resolve(null); }
+    var ctrl = ("AbortController" in window) ? new AbortController() : null;
+    var timer = setTimeout(function () {
+      if (ctrl) { ctrl.abort(); }
+    }, ms || 4000);
+    return fetch(candidate + "/api/health", {
+      cache: "no-store",
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (r) { return r.ok ? r.json() : null; })
       .then(function (data) {
         return data && data.status === "ok" ? candidate : null;
       })
-      .catch(function () { return null; });
+      .catch(function () { return null; })
+      .then(function (value) { clearTimeout(timer); return value; });
+  }
+
+  var CACHE_KEY = "fitwave.api.base";
+  function cachedBase() {
+    try {
+      var value = JSON.parse(sessionStorage.getItem(CACHE_KEY) || "null");
+      if (value && value.base && Date.now() - (value.ts || 0) < 30 * 60 * 1000) {
+        return value.base;
+      }
+    } catch (e) { /* ignore */ }
+    return null;
+  }
+  function cacheBase(value) {
+    try {
+      sessionStorage.setItem(CACHE_KEY, JSON.stringify({ base: value, ts: Date.now() }));
+    } catch (e) { /* ignore */ }
+  }
+
+  function fetchManifest() {
+    // first successful manifest wins (the freshest source is the API one)
+    return new Promise(function (resolve) {
+      var settled = false;
+      MANIFEST_URLS.forEach(function (u) {
+        fetch(u + "?cb=" + Date.now(), {
+          cache: "no-store",
+          headers: { Accept: "application/vnd.github+json" }
+        }).then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (data) {
+            var found = readManifest(data);
+            if (found && !settled) { settled = true; resolve(found); }
+          }).catch(function () { /* ignore */ });
+      });
+      setTimeout(function () {
+        if (!settled) { settled = true; resolve(null); }
+      }, 4000);
+    });
   }
 
   function resolveBase() {
     if (resolving) { return resolving; }
-    var manifest = MANIFEST_URLS.map(function (u) {
-      return fetch(u + "?cb=" + Date.now(), {
-        cache: "no-store",
-        headers: { Accept: "application/vnd.github+json" }
-      }).then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (data) { return readManifest(data); })
-        .catch(function () { return null; });
+    var cached = cachedBase();
+    var list = [];
+    [cached, base].forEach(function (u) {
+      if (u && list.indexOf(u) < 0) { list.push(u); }
     });
-    resolving = Promise.all(manifest).then(function (found) {
-      found.filter(Boolean).forEach(function (u) {
-        if (candidates.indexOf(u) < 0) { candidates.push(u); }
-      });
-      var list = candidates.slice();
+    resolving = fetchManifest().then(function (found) {
+      if (found && list.indexOf(found) < 0) { list.unshift(found); }
       return list.reduce(function (chain, candidate) {
-        return chain.then(function (found) {
-          if (found) { return found; }
-          return probe(candidate);
+        return chain.then(function (alive) {
+          if (alive) { return alive; }
+          return probe(candidate, 4000);
         });
       }, Promise.resolve(null));
     }).then(function (found) {
-      if (found) { base = found; }
+      if (found) { base = found; cacheBase(found); }
+      candidates = list;
       try {
         window.FITWAVE_API_RESOLVED = base;
         window.FITWAVE_API_CANDIDATES = candidates.slice();
@@ -147,12 +197,17 @@
     if (options.body) { headers["Content-Type"] = "application/json"; }
     var t = token();
     if (t) { headers["Authorization"] = "Bearer " + t; }
+    var ctrl = ("AbortController" in window) ? new AbortController() : null;
+    var timer = setTimeout(function () {
+      if (ctrl) { ctrl.abort(); }
+    }, 15000);
     return fetch(baseUrl + path, {
       method: options.method || "GET",
       headers: headers,
       body: options.body ? JSON.stringify(options.body) : undefined,
       credentials: "omit",
-      cache: "no-store"
+      cache: "no-store",
+      signal: ctrl ? ctrl.signal : undefined
     }).catch(function () {
       var netErr = new Error("NETWORK");
       netErr.status = 0;
@@ -170,6 +225,12 @@
         }
         return data;
       });
+    }).then(function (value) {
+      clearTimeout(timer);
+      return value;
+    }, function (err) {
+      clearTimeout(timer);
+      throw err;
     });
   }
 
