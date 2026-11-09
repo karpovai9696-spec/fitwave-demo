@@ -1,8 +1,9 @@
 {
   "base": "https://ca0a72e8d1a47c.lhr.life",
   "bases": [
-    "https://ca0a72e8d1a47c.lhr.life"
+    "https://ca0a72e8d1a47c.lhr.life",
+    "https://089db571444ea0ec-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-09T07:34:14Z",
+  "updated": "2026-11-09T07:36:23Z",
   "source": "tunnels-watchdog"
 }
