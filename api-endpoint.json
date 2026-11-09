@@ -2,8 +2,9 @@
   "base": "https://d8b0d3250fd1e1.lhr.life",
   "bases": [
     "https://d8b0d3250fd1e1.lhr.life",
-    "https://pfsgs-78-138-138-218.run.pinggy-free.link"
+    "https://pfsgs-78-138-138-218.run.pinggy-free.link",
+    "https://feace1cd2d45709e-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-09T01:00:06Z",
+  "updated": "2026-11-09T01:02:14Z",
   "source": "tunnels-watchdog"
 }
