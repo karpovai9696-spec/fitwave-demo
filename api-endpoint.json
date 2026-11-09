@@ -1,8 +1,10 @@
 {
-  "base": "https://lzbtr-78-138-138-218.run.pinggy-free.link",
+  "base": "https://be0d8dd46f407c.lhr.life",
   "bases": [
-    "https://lzbtr-78-138-138-218.run.pinggy-free.link"
+    "https://be0d8dd46f407c.lhr.life",
+    "https://lzbtr-78-138-138-218.run.pinggy-free.link",
+    "https://5212d80693bc8609-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-09T12:32:06Z",
+  "updated": "2026-11-09T12:34:23Z",
   "source": "tunnels-watchdog"
 }
