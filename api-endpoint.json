@@ -1,8 +1,9 @@
 {
-  "base": "https://zprui-78-138-138-218.run.pinggy-free.link",
+  "base": "https://mvfwc-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://zprui-78-138-138-218.run.pinggy-free.link"
+    "https://mvfwc-78-138-138-218.run.pinggy-free.link",
+    "https://202c979bcd442fb3-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-10T10:44:21Z",
+  "updated": "2026-11-10T10:46:30Z",
   "source": "tunnels-watchdog"
 }
