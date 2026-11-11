@@ -1,10 +1,10 @@
 {
-  "base": "https://2c381b9309b03e.lhr.life",
+  "base": "https://1335df150b0004.lhr.life",
   "bases": [
-    "https://2c381b9309b03e.lhr.life",
+    "https://1335df150b0004.lhr.life",
     "https://zekfd-78-138-138-218.free.pinggy.net",
-    "https://1e227ebd60c7b521-78-138-138-218.serveousercontent.com"
+    "https://27a4c2a59ddade02-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-11T14:42:16Z",
+  "updated": "2026-11-11T14:44:24Z",
   "source": "tunnels-watchdog"
 }
