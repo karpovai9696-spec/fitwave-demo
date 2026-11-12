@@ -1,9 +1,10 @@
 {
-  "base": "https://luobo-78-138-138-218.free.pinggy.net",
+  "base": "https://6b5da62e2cc98e.lhr.life",
   "bases": [
+    "https://6b5da62e2cc98e.lhr.life",
     "https://luobo-78-138-138-218.free.pinggy.net",
-    "https://a56a878255169f64-78-138-138-218.serveousercontent.com"
+    "https://b2758c7ca2ffbf94-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-12T07:44:14Z",
+  "updated": "2026-11-12T07:46:23Z",
   "source": "tunnels-watchdog"
 }
