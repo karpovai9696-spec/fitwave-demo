@@ -1,9 +1,10 @@
 {
-  "base": "https://tfzha-78-138-138-218.free.pinggy.net",
+  "base": "https://35b6995ca99f5d.lhr.life",
   "bases": [
+    "https://35b6995ca99f5d.lhr.life",
     "https://tfzha-78-138-138-218.free.pinggy.net",
     "https://f339858ff43869d2-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-12T04:44:06Z",
+  "updated": "2026-11-12T04:46:15Z",
   "source": "tunnels-watchdog"
 }
