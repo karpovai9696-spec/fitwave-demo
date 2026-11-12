@@ -1,9 +1,10 @@
 {
-  "base": "https://vfozy-78-138-138-218.free.pinggy.net",
+  "base": "https://35f6242e82db24.lhr.life",
   "bases": [
+    "https://35f6242e82db24.lhr.life",
     "https://vfozy-78-138-138-218.free.pinggy.net",
     "https://b34e30db1de9dc4b-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-12T13:18:14Z",
+  "updated": "2026-11-12T13:20:16Z",
   "source": "tunnels-watchdog"
 }
