@@ -1,9 +1,10 @@
 {
-  "base": "https://927351bb088a29.lhr.life",
+  "base": "https://602c5fccc3a411.lhr.life",
   "bases": [
-    "https://927351bb088a29.lhr.life",
-    "https://slemy-78-138-138-218.free.pinggy.net"
+    "https://602c5fccc3a411.lhr.life",
+    "https://slemy-78-138-138-218.free.pinggy.net",
+    "https://bebea737c600c0b9-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-12T06:00:14Z",
+  "updated": "2026-11-12T06:02:24Z",
   "source": "tunnels-watchdog"
 }
