@@ -1,4 +1,4 @@
 /* Beta API endpoints. The primary URL is a fallback only: the frontend
    resolves the live endpoint at runtime from api-endpoint.json (published by
    the 227 watchdog) and probes /api/health before use. */
-window.FITWAVE_API_BASE = "https://9f534d54d85e07.lhr.life";
+window.FITWAVE_API_BASE = "https://af6fc3d68aef1a.lhr.life";
