@@ -1,10 +1,8 @@
 {
   "base": "https://f64f2a9c074e11.lhr.life",
   "bases": [
-    "https://f64f2a9c074e11.lhr.life",
-    "https://vpnrd-78-138-138-218.free.pinggy.net",
-    "https://3270e88a9131e976-78-138-138-218.serveousercontent.com"
+    "https://f64f2a9c074e11.lhr.life"
   ],
-  "updated": "2026-11-13T01:30:15Z",
+  "updated": "2026-11-13T01:32:06Z",
   "source": "tunnels-watchdog"
 }
