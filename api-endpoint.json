@@ -1,8 +1,9 @@
 {
   "base": "https://vdelm-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://vdelm-78-138-138-218.free.pinggy.net"
+    "https://vdelm-78-138-138-218.free.pinggy.net",
+    "https://812f915fb9c4471b-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-14T04:56:14Z",
+  "updated": "2026-11-14T04:58:21Z",
   "source": "tunnels-watchdog"
 }
