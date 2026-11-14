@@ -1,8 +1,9 @@
 {
   "base": "https://jvuzg-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://jvuzg-78-138-138-218.run.pinggy-free.link"
+    "https://jvuzg-78-138-138-218.run.pinggy-free.link",
+    "https://8aed3d67dffececf-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-14T12:18:13Z",
+  "updated": "2026-11-14T12:20:21Z",
   "source": "tunnels-watchdog"
 }
