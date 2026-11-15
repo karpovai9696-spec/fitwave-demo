@@ -1,9 +1,8 @@
 {
   "base": "https://rcvfk-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://rcvfk-78-138-138-218.free.pinggy.net",
-    "https://a399f84e6e496990-78-138-138-218.serveousercontent.com"
+    "https://rcvfk-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-15T14:12:14Z",
+  "updated": "2026-11-15T14:14:13Z",
   "source": "tunnels-watchdog"
 }
