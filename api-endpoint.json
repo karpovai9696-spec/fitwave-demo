@@ -1,9 +1,8 @@
 {
   "base": "https://odrwb-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://odrwb-78-138-138-218.free.pinggy.net",
-    "https://1aa82829c02b81da-78-138-138-218.serveousercontent.com"
+    "https://odrwb-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-16T06:30:13Z",
+  "updated": "2026-11-16T06:32:13Z",
   "source": "tunnels-watchdog"
 }
