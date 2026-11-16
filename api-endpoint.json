@@ -1,8 +1,9 @@
 {
   "base": "https://skoli-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://skoli-78-138-138-218.run.pinggy-free.link"
+    "https://skoli-78-138-138-218.run.pinggy-free.link",
+    "https://734820eb3a82f46f-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-16T03:50:13Z",
+  "updated": "2026-11-16T03:52:21Z",
   "source": "tunnels-watchdog"
 }
