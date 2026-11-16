@@ -1,9 +1,8 @@
 {
   "base": "https://obmuk-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://obmuk-78-138-138-218.free.pinggy.net",
-    "https://cbb7564bac26735a-78-138-138-218.serveousercontent.com"
+    "https://obmuk-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-16T11:10:14Z",
+  "updated": "2026-11-16T11:12:13Z",
   "source": "tunnels-watchdog"
 }
