@@ -1,9 +1,8 @@
 {
   "base": "https://rrdjp-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://rrdjp-78-138-138-218.run.pinggy-free.link",
-    "https://53981244cf52c963-78-138-138-218.serveousercontent.com"
+    "https://rrdjp-78-138-138-218.run.pinggy-free.link"
   ],
-  "updated": "2026-11-16T18:08:13Z",
+  "updated": "2026-11-16T18:10:14Z",
   "source": "tunnels-watchdog"
 }
