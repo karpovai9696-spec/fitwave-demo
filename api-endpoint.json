@@ -1,9 +1,8 @@
 {
   "base": "https://nwkpq-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://nwkpq-78-138-138-218.free.pinggy.net",
-    "https://fc054a9d4d6d34f6-78-138-138-218.serveousercontent.com"
+    "https://nwkpq-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-17T03:14:14Z",
+  "updated": "2026-11-17T03:16:21Z",
   "source": "tunnels-watchdog"
 }
