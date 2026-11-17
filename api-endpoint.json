@@ -1,8 +1,9 @@
 {
   "base": "https://nosft-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://nosft-78-138-138-218.run.pinggy-free.link"
+    "https://nosft-78-138-138-218.run.pinggy-free.link",
+    "https://0959589e5d50d6a0-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-17T00:30:14Z",
+  "updated": "2026-11-17T00:32:22Z",
   "source": "tunnels-watchdog"
 }
