@@ -1,9 +1,8 @@
 {
   "base": "https://irogk-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://irogk-78-138-138-218.free.pinggy.net",
-    "https://186e01e60227cb14-78-138-138-218.serveousercontent.com"
+    "https://irogk-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-17T17:52:18Z",
+  "updated": "2026-11-17T17:54:16Z",
   "source": "tunnels-watchdog"
 }
