@@ -1,9 +1,8 @@
 {
   "base": "https://sakjv-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://sakjv-78-138-138-218.run.pinggy-free.link",
-    "https://0718f7dccd8619fb-78-138-138-218.serveousercontent.com"
+    "https://sakjv-78-138-138-218.run.pinggy-free.link"
   ],
-  "updated": "2026-11-18T19:32:14Z",
+  "updated": "2026-11-18T19:34:14Z",
   "source": "tunnels-watchdog"
 }
