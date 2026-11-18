@@ -1,9 +1,8 @@
 {
   "base": "https://qnksd-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://qnksd-78-138-138-218.free.pinggy.net",
-    "https://f422a0890c810a29-78-138-138-218.serveousercontent.com"
+    "https://qnksd-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-18T21:22:14Z",
+  "updated": "2026-11-18T21:24:14Z",
   "source": "tunnels-watchdog"
 }
