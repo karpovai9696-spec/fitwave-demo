@@ -1,9 +1,8 @@
 {
   "base": "https://orcrn-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://orcrn-78-138-138-218.run.pinggy-free.link",
-    "https://0163da3829c86d45-78-138-138-218.serveousercontent.com"
+    "https://orcrn-78-138-138-218.run.pinggy-free.link"
   ],
-  "updated": "2026-11-18T06:18:13Z",
+  "updated": "2026-11-18T06:20:13Z",
   "source": "tunnels-watchdog"
 }
