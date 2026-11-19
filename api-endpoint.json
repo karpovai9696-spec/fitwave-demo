@@ -1,9 +1,8 @@
 {
   "base": "https://zeqzp-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://zeqzp-78-138-138-218.free.pinggy.net",
-    "https://0ea92176d4cb5a69-78-138-138-218.serveousercontent.com"
+    "https://zeqzp-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-19T06:40:13Z",
+  "updated": "2026-11-19T06:42:14Z",
   "source": "tunnels-watchdog"
 }
