@@ -1,9 +1,8 @@
 {
   "base": "https://mrlqo-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://mrlqo-78-138-138-218.free.pinggy.net",
-    "https://d0b5039dd0ee1985-78-138-138-218.serveousercontent.com"
+    "https://mrlqo-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-21T21:54:14Z",
+  "updated": "2026-11-21T21:56:14Z",
   "source": "tunnels-watchdog"
 }
