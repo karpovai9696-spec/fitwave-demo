@@ -1,8 +1,9 @@
 {
   "base": "https://nzcmz-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://nzcmz-78-138-138-218.run.pinggy-free.link"
+    "https://nzcmz-78-138-138-218.run.pinggy-free.link",
+    "https://50daa82b34a2a44b-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-22T10:28:14Z",
+  "updated": "2026-11-22T10:30:22Z",
   "source": "tunnels-watchdog"
 }
