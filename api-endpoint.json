@@ -1,9 +1,8 @@
 {
   "base": "https://rxcab-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://rxcab-78-138-138-218.free.pinggy.net",
-    "https://7262a2cab179494a-78-138-138-218.serveousercontent.com"
+    "https://rxcab-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-22T05:04:14Z",
+  "updated": "2026-11-22T05:06:14Z",
   "source": "tunnels-watchdog"
 }
