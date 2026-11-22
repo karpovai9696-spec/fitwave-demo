@@ -1,9 +1,8 @@
 {
   "base": "https://zjoft-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://zjoft-78-138-138-218.free.pinggy.net",
-    "https://c1edd27332ace5cc-78-138-138-218.serveousercontent.com"
+    "https://zjoft-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-22T22:20:13Z",
+  "updated": "2026-11-22T22:22:14Z",
   "source": "tunnels-watchdog"
 }
