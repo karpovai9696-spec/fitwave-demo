@@ -1,9 +1,8 @@
 {
-  "base": "https://ifmid-78-138-138-218.free.pinggy.net",
+  "base": "https://50e8bdc592414d03-78-138-138-218.serveousercontent.com",
   "bases": [
-    "https://ifmid-78-138-138-218.free.pinggy.net",
     "https://50e8bdc592414d03-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-23T17:26:14Z",
+  "updated": "2026-11-23T17:28:28Z",
   "source": "tunnels-watchdog"
 }
