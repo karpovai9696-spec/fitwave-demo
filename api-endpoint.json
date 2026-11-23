@@ -1,9 +1,8 @@
 {
-  "base": "https://riprn-78-138-138-218.free.pinggy.net",
+  "base": "https://1ea25a3ec69e1d3a-78-138-138-218.serveousercontent.com",
   "bases": [
-    "https://riprn-78-138-138-218.free.pinggy.net",
     "https://1ea25a3ec69e1d3a-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-23T10:38:14Z",
+  "updated": "2026-11-23T10:40:32Z",
   "source": "tunnels-watchdog"
 }
