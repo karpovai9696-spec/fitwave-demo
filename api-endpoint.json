@@ -1,8 +1,9 @@
 {
   "base": "https://ypsol-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://ypsol-78-138-138-218.run.pinggy-free.link"
+    "https://ypsol-78-138-138-218.run.pinggy-free.link",
+    "https://e842e51d4b96146e-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-23T01:14:14Z",
+  "updated": "2026-11-23T01:16:22Z",
   "source": "tunnels-watchdog"
 }
