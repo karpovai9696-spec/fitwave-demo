@@ -1,9 +1,8 @@
 {
   "base": "https://oasxc-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://oasxc-78-138-138-218.free.pinggy.net",
-    "https://6a213e36bb964050-78-138-138-218.serveousercontent.com"
+    "https://oasxc-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-24T22:22:13Z",
+  "updated": "2026-11-24T22:24:14Z",
   "source": "tunnels-watchdog"
 }
