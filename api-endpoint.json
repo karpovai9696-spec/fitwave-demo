@@ -1,8 +1,9 @@
 {
-  "base": "https://18b3d45a15083839-78-138-138-218.serveousercontent.com",
+  "base": "https://rnhof-78-138-138-218.run.pinggy-free.link",
   "bases": [
+    "https://rnhof-78-138-138-218.run.pinggy-free.link",
     "https://18b3d45a15083839-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-24T11:34:29Z",
+  "updated": "2026-11-24T11:36:22Z",
   "source": "tunnels-watchdog"
 }
