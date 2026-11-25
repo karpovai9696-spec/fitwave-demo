@@ -1,9 +1,8 @@
 {
   "base": "https://ksciz-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://ksciz-78-138-138-218.run.pinggy-free.link",
-    "https://4ad7a26fb987feeb-78-138-138-218.serveousercontent.com"
+    "https://ksciz-78-138-138-218.run.pinggy-free.link"
   ],
-  "updated": "2026-11-25T18:42:13Z",
+  "updated": "2026-11-25T18:44:13Z",
   "source": "tunnels-watchdog"
 }
