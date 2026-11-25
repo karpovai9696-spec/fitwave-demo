@@ -1,8 +1,9 @@
 {
   "base": "https://tueik-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://tueik-78-138-138-218.free.pinggy.net"
+    "https://tueik-78-138-138-218.free.pinggy.net",
+    "https://269751d899ac6d02-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-25T16:40:13Z",
+  "updated": "2026-11-25T16:42:22Z",
   "source": "tunnels-watchdog"
 }
