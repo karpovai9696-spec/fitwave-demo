@@ -1,8 +1,9 @@
 {
   "base": "https://zmgyi-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://zmgyi-78-138-138-218.run.pinggy-free.link"
+    "https://zmgyi-78-138-138-218.run.pinggy-free.link",
+    "https://2e23c8b49e277560-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-25T19:20:14Z",
+  "updated": "2026-11-25T19:22:22Z",
   "source": "tunnels-watchdog"
 }
