@@ -1,8 +1,9 @@
 {
   "base": "https://lskav-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://lskav-78-138-138-218.run.pinggy-free.link"
+    "https://lskav-78-138-138-218.run.pinggy-free.link",
+    "https://2b01bf3017cc287c-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-26T08:04:13Z",
+  "updated": "2026-11-26T08:06:22Z",
   "source": "tunnels-watchdog"
 }
