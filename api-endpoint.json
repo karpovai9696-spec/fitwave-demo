@@ -1,8 +1,9 @@
 {
   "base": "https://ksaet-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://ksaet-78-138-138-218.free.pinggy.net"
+    "https://ksaet-78-138-138-218.free.pinggy.net",
+    "https://f519ba026cb0248b-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-26T21:44:13Z",
+  "updated": "2026-11-26T21:46:22Z",
   "source": "tunnels-watchdog"
 }
