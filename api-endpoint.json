@@ -1,9 +1,8 @@
 {
   "base": "https://rjglz-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://rjglz-78-138-138-218.free.pinggy.net",
-    "https://7fef6519a559036c-78-138-138-218.serveousercontent.com"
+    "https://rjglz-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-26T23:04:13Z",
+  "updated": "2026-11-26T23:06:13Z",
   "source": "tunnels-watchdog"
 }
