@@ -1,9 +1,8 @@
 {
   "base": "https://vkfki-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://vkfki-78-138-138-218.free.pinggy.net",
-    "https://284162fcb5ba6466-78-138-138-218.serveousercontent.com"
+    "https://vkfki-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-26T18:48:14Z",
+  "updated": "2026-11-26T18:50:14Z",
   "source": "tunnels-watchdog"
 }
