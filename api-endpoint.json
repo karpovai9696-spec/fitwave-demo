@@ -1,9 +1,8 @@
 {
   "base": "https://hboch-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://hboch-78-138-138-218.free.pinggy.net",
-    "https://111d22157d8f1569-78-138-138-218.serveousercontent.com"
+    "https://hboch-78-138-138-218.free.pinggy.net"
   ],
-  "updated": "2026-11-27T10:12:14Z",
+  "updated": "2026-11-27T10:14:13Z",
   "source": "tunnels-watchdog"
 }
