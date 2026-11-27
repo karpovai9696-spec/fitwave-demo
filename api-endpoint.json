@@ -1,8 +1,9 @@
 {
   "base": "https://iovip-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://iovip-78-138-138-218.run.pinggy-free.link"
+    "https://iovip-78-138-138-218.run.pinggy-free.link",
+    "https://15d8daadf050b1ed-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-27T14:42:13Z",
+  "updated": "2026-11-27T14:44:21Z",
   "source": "tunnels-watchdog"
 }
