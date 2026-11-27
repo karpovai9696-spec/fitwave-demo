@@ -1,8 +1,9 @@
 {
   "base": "https://suang-78-138-138-218.free.pinggy.net",
   "bases": [
-    "https://suang-78-138-138-218.free.pinggy.net"
+    "https://suang-78-138-138-218.free.pinggy.net",
+    "https://95be74c64aee7b71-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-27T08:04:13Z",
+  "updated": "2026-11-27T08:06:22Z",
   "source": "tunnels-watchdog"
 }
