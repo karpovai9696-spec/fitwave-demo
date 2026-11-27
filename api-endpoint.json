@@ -1,8 +1,9 @@
 {
   "base": "https://urvbd-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://urvbd-78-138-138-218.run.pinggy-free.link"
+    "https://urvbd-78-138-138-218.run.pinggy-free.link",
+    "https://d00c9e8da4c3a74d-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-27T22:56:13Z",
+  "updated": "2026-11-27T22:58:21Z",
   "source": "tunnels-watchdog"
 }
