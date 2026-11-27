@@ -1,8 +1,9 @@
 {
-  "base": "https://2cfe99d3a8a86a53-78-138-138-218.serveousercontent.com",
+  "base": "https://odcsd-78-138-138-218.free.pinggy.net",
   "bases": [
+    "https://odcsd-78-138-138-218.free.pinggy.net",
     "https://2cfe99d3a8a86a53-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-27T21:26:21Z",
+  "updated": "2026-11-27T21:28:21Z",
   "source": "tunnels-watchdog"
 }
