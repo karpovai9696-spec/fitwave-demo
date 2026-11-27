@@ -1,8 +1,9 @@
 {
   "base": "https://ydsnk-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://ydsnk-78-138-138-218.run.pinggy-free.link"
+    "https://ydsnk-78-138-138-218.run.pinggy-free.link",
+    "https://c54d0ca0d24f9d7e-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-27T06:30:14Z",
+  "updated": "2026-11-27T06:32:22Z",
   "source": "tunnels-watchdog"
 }
