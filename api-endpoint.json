@@ -1,8 +1,9 @@
 {
   "base": "https://ojpsu-78-138-138-218.run.pinggy-free.link",
   "bases": [
-    "https://ojpsu-78-138-138-218.run.pinggy-free.link"
+    "https://ojpsu-78-138-138-218.run.pinggy-free.link",
+    "https://6e9a2a9105d17d45-78-138-138-218.serveousercontent.com"
   ],
-  "updated": "2026-11-28T10:30:12Z",
+  "updated": "2026-11-28T10:32:21Z",
   "source": "tunnels-watchdog"
 }
